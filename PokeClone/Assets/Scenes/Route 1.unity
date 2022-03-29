@@ -176,7 +176,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5.377314
+  orthographic size: 4.8449154
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -451,6 +451,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 2
   rb: {fileID: 313911051}
+  animator: {fileID: 313911055}
 --- !u!50 &313911051
 Rigidbody2D:
   serializedVersion: 4
@@ -563,7 +564,7 @@ Animator:
   m_GameObject: {fileID: 313911049}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 04b5e1aaae02c8e4f907575a190518f8, type: 2}
+  m_Controller: {fileID: 9100000, guid: 4e77a83ab90960f40ae28941b2e286e8, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -661,6 +662,7 @@ GameObject:
   - component: {fileID: 1549206528}
   - component: {fileID: 1549206530}
   - component: {fileID: 1549206529}
+  - component: {fileID: 1549206531}
   m_Layer: 0
   m_Name: Tilemap
   m_TagString: Untagged
@@ -676,7 +678,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1549206527}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 3.8, y: 0.16, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 937748068}
@@ -2910,3 +2912,19 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!70 &1549206531
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1549206527}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 1, y: 0}
+  m_Size: {x: 33.32, y: 21.32}
+  m_Direction: 0
