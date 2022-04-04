@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -27,5 +28,15 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        int num = Random.Range(0, 101);
+        
+        if (num == 1)
+        {
+            SceneManager.LoadScene("BATTLE");
+        }
     }
 }
