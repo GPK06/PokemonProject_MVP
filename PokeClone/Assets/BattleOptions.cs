@@ -21,7 +21,15 @@ public class BattleOptions : MonoBehaviour
 
     public void battle()
     {
-        mossamr.takeDamage(25);
-        volthesis.takeDamage(25, mossamr);
+        if (volthesis.getSpeed() > mossamr.getSpeed())
+        {
+            mossamr.takeDamage(25, volthesis);
+            volthesis.takeDamage(25, mossamr);
+        }
+        else
+        {
+            volthesis.takeDamage(25, mossamr);
+            mossamr.takeDamage(25, volthesis);
+        }
     }
 }
