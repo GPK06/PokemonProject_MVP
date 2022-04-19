@@ -309,7 +309,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b65813fe2d6c51c45ba4c5bbca9eacea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 100
 --- !u!212 &642388977
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -405,7 +404,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64f67eba28f974f42a6fb7f8fc64d84c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 100
 --- !u!212 &720700142
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -506,8 +504,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 154.2844, y: -173.14}
-  m_SizeDelta: {x: 168.5283, y: 51.183}
+  m_AnchoredPosition: {x: 154.8633, y: -173.36}
+  m_SizeDelta: {x: 170.2808, y: 51.242}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1304700483
 MonoBehaviour:
@@ -653,7 +651,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_UiScaleMode: 0
   m_ReferencePixelsPerUnit: 100
-  m_ScaleFactor: 1.5
+  m_ScaleFactor: 1.7
   m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
