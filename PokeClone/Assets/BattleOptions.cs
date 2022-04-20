@@ -19,8 +19,11 @@ public class BattleOptions : MonoBehaviour
         SceneManager.LoadScene("Route 1");
     }
 
-    public void battle()
+    public void battle(int n)
     {
+        // if int n is a 1 then we are using the primary stat
+        // if int n is a 2 then we are using the secondary stat
+
         if (volthesis.getSpeed() > mossamr.getSpeed())
         {
             mossamr.takeDamage(25, volthesis);
@@ -31,5 +34,10 @@ public class BattleOptions : MonoBehaviour
             volthesis.takeDamage(25, mossamr);
             mossamr.takeDamage(25, volthesis);
         }
+    }
+
+    public void moveSelection()
+    {
+        SceneManager.LoadScene("MoveSelection");
     }
 }

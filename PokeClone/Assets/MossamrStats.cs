@@ -3,28 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MossamrStats
+public class MossamrStats : MonoBehaviour
 {
     public string primaryType = "Grass";
     public string secondaryType = "Steel";
 
     public int MaxHealth = 87;
-    public int currentHealth { get; private set; }
+    public int currentHealth;
 
     public int maxSpeed = 87;
-    public int currentSpeed { get; private set; }
+    public int currentSpeed;
 
     public int maxAttack = 87;
-    public int currentAttack { get; private set; }
+    public int currentAttack;
 
     public int maxSpecialAttack = 87;
-    public int currentSpecialAttack { get private set; }
+    public int currentSpecialAttack;
 
     public int maxDefense = 87;
-    public int currentDefense { get; private set; }
+    public int currentDefense;
 
     public int maxSpecialDefense = 87;
-    public int currentSpecialDefense { get; private set; }
+    public int currentSpecialDefense;
+    
+    public Move grass;
+    public Move steel;
+
 
     public MossamrStats()
     {
@@ -34,9 +38,12 @@ public class MossamrStats
         currentSpecialAttack = maxSpecialAttack;
         currentDefense = maxDefense;
         currentSpecialDefense = maxSpecialDefense;
+           
+       grass = new Move(80, "Attack", "grass");
+       steel = new Move(80, "Attack", "steel");
     }
 
-    public int damageDone(VolthesisStats volthesis)
+    public void damageDone(VolthesisStats volthesis)
     {
         //Damage = ((((2 * Level / 5 + 2) * AttackStat * AttackPower / DefenseStat) / 50) + 2) * STAB * Weakness/Resistance * RandomNumber / 100
         
