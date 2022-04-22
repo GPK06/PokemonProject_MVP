@@ -26,8 +26,12 @@ public class VolthesisStats : MonoBehaviour
     public int maxSpecialDefense = 87;
     public int currentSpecialDefense;
 
-    public Move fire = new Move(80, "Attack", "fire");
-    public Move steel = new Move(80, "Attack", "fairy");
+    public Move fire;
+    public Move fairy;
+
+    private HashSet<string> weakness = new HashSet<string>();
+    private HashSet<string> resistance = new HashSet<string>();
+    private HashSet<string> immunity = new HashSet<string>();
 
     public VolthesisStats()
     {
@@ -37,12 +41,20 @@ public class VolthesisStats : MonoBehaviour
         currentSpecialAttack = maxSpecialAttack;
         currentDefense = maxDefense;
         currentSpecialDefense = maxSpecialDefense;
+
+        fire = new Move(80, "Attack", "fire");
+        fairy = new Move(80, "Attack", "fairy");
+
+        addWeakness();
+        addResistance();
+        addImmunity();
     }
 
-    public void damageDone(MossamrStats mossamr)
+    public void damageDone(VolthesisStats volthesis, string typeBeingUsed)
     {
         //Damage = ((((2 * Level / 5 + 2) * AttackStat * AttackPower / DefenseStat) / 50) + 2) * STAB * Weakness/Resistance * RandomNumber / 100
 
+        // if the string in resistance/weakness contains a 2, it is a 4x weakness/resistance
     }
 
     public void takeDamage(int damage, MossamrStats mossamr)
@@ -102,5 +114,29 @@ public class VolthesisStats : MonoBehaviour
     public string getSecondaryType()
     {
         return secondaryType;
+    }
+
+    public void addWeakness()
+    {
+        weakness.Add("water");
+        weakness.Add("ground");
+        weakness.Add("poison");
+        weakness.Add("rock");
+    }
+
+    public void addResistance()
+    {
+        resistance.Add("fire");
+        resistance.Add("grass");
+        resistance.Add("ice");
+        resistance.Add("fighting");
+        resistance.Add("fairy");
+        resistance.Add("bug 2"); // 4x resistance
+        resistance.Add("dark");
+    }
+
+    public void addImmunity()
+    {
+        immunity.Add("dragon");
     }
 }

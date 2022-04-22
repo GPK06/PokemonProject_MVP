@@ -25,10 +25,13 @@ public class MossamrStats : MonoBehaviour
 
     public int maxSpecialDefense = 87;
     public int currentSpecialDefense;
-    
+
     public Move grass;
     public Move steel;
 
+    private HashSet<string> weakness = new HashSet<string>();
+    private HashSet<string> resistance = new HashSet<string>();
+    private HashSet<string> immunity = new HashSet<string>();
 
     public MossamrStats()
     {
@@ -39,11 +42,11 @@ public class MossamrStats : MonoBehaviour
         currentDefense = maxDefense;
         currentSpecialDefense = maxSpecialDefense;
            
-       grass = new Move(80, "Attack", "grass");
-       steel = new Move(80, "Attack", "steel");
+        grass = new Move(80, "Attack", "grass");
+        steel = new Move(80, "Attack", "steel");
     }
 
-    public void damageDone(VolthesisStats volthesis)
+    public void damageDone(VolthesisStats volthesis, string typeBeingUsed)
     {
         //Damage = ((((2 * Level / 5 + 2) * AttackStat * AttackPower / DefenseStat) / 50) + 2) * STAB * Weakness/Resistance * RandomNumber / 100
         
@@ -104,5 +107,29 @@ public class MossamrStats : MonoBehaviour
     public string getSecondaryType()
     {
         return secondaryType;
+    }
+
+    public void addWeakness()
+    {
+        weakness.Add("fire 2"); //4x weakness
+        weakness.Add("fighting");
+    }
+
+    public void addResistance()
+    {
+        resistance.Add("normal");
+        resistance.Add("grass 2"); // 4x weakness
+        resistance.Add("water");
+        resistance.Add("electric");
+        resistance.Add("psychic");
+        resistance.Add("rock");
+        resistance.Add("dragon");
+        resistance.Add("steel");
+        resistance.Add("fairy");
+    }
+
+    public void addImmunity()
+    {
+        immunity.Add("poison");
     }
 }

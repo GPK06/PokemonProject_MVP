@@ -21,8 +21,16 @@ public class BattleOptions : MonoBehaviour
 
     public void battle(int n)
     {
-        // if int n is a 1 then we are using the primary stat
-        // if int n is a 2 then we are using the secondary stat
+        if (n == 1)
+        {
+            // if int n is a 1 then we are using the primary stat
+            mossamr.damageDone(volthesis, )
+        }
+        else
+        {
+            // if int n is a 2 then we are using the secondary stat
+
+        }
 
         if (volthesis.getSpeed() > mossamr.getSpeed())
         {
