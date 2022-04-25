@@ -42,19 +42,55 @@ public class VolthesisStats : MonoBehaviour
         currentDefense = maxDefense;
         currentSpecialDefense = maxSpecialDefense;
 
-        fire = new Move(80, "Attack", "fire");
-        fairy = new Move(80, "Attack", "fairy");
+        fire = new Move(80, "SpecialAttack", "fire");
+        fairy = new Move(80, "SpecialAttack", "fairy");
 
         addWeakness();
         addResistance();
         addImmunity();
     }
 
-    public void damageDone(VolthesisStats volthesis, string typeBeingUsed)
+    public void damageDone(MossmarStats mossamr, string typeBeingUsed)
     {
         //Damage = ((((2 * Level / 5 + 2) * AttackStat * AttackPower / DefenseStat) / 50) + 2) * STAB * Weakness/Resistance * RandomNumber / 100
 
-        // if the string in resistance/weakness contains a 2, it is a 4x weakness/resistance
+        int effective = effectiveness(typeBeingUsed);
+        int attackPower = fire.getBasePower;
+
+        if (typeBeingUsed)
+        int attackStat = getSpecialAttack();
+        int defenseStat = mossamr.getSpecialDefense();
+        int randomNum = Random.Range(85, 101) / 100;
+
+        int damage = ((((2 * 50 / 5 + 2) * attackStat * attackPower / defenseStat) / 50) + 2) * 1.5 * effective * randomNum / 100;
+        return damage;
+    }
+
+    public bool effectiveness(string type)
+    {
+        int numerator = 1;
+        int denominator = 1;
+        string setType;
+        if (weakness.Contains(type))
+        {
+            setType = weakness.TryGetValue(type, out type);
+            numerator = 2;
+            if (setType.contains("2"))
+            {
+                numerator = 4;
+            }
+        }
+
+        if (resistance.Contains(type))
+        {
+            setType = weakness.TryGetValue(type, out type);
+            denominator = 2;
+            if (setType.contains("2"))
+            {
+                denominator = 4;
+            }
+        }
+        return numerator / denominator;
     }
 
     public void takeDamage(int damage, MossamrStats mossamr)
@@ -131,7 +167,7 @@ public class VolthesisStats : MonoBehaviour
         resistance.Add("ice");
         resistance.Add("fighting");
         resistance.Add("fairy");
-        resistance.Add("bug 2"); // 4x resistance
+        resistance.Add("bug"); // 4x resistance
         resistance.Add("dark");
     }
 

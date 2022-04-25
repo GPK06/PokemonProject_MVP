@@ -21,26 +21,41 @@ public class BattleOptions : MonoBehaviour
 
     public void battle(int n)
     {
-        if (n == 1)
+        int num = Random.Range(0, 2);
+        string stat;
+        if (num == 0)
+        {
+            stat = mossamr.getPrimaryStat();
+        } else
+        {
+            stat = mossmar.getSecondaryStat();
+        }
+
+
+        int mossDamage;
+        int volthDamage;
+        if (n == 0)
         {
             // if int n is a 1 then we are using the primary stat
-            mossamr.damageDone(volthesis, )
+            mossDamage = mossamr.damageDone(volthesis, stat);
+            volthDamage = volthesis.damageDone(mossamr, mossamr.getPrimaryStat());
         }
         else
         {
             // if int n is a 2 then we are using the secondary stat
-
+            mossDamage = mossmar.damageDone(volthesis, stat);
+            volthDamage = mossmar.damageDone(mossamr, volthesis.getSecondaryStat());
         }
 
         if (volthesis.getSpeed() > mossamr.getSpeed())
         {
-            mossamr.takeDamage(25, volthesis);
-            volthesis.takeDamage(25, mossamr);
+            mossamr.takeDamage(volthDamage, volthesis);
+            volthesis.takeDamage(mossDamage, mossamr);
         }
         else
         {
-            volthesis.takeDamage(25, mossamr);
-            mossamr.takeDamage(25, volthesis);
+            volthesis.takeDamage(mossDamage, mossamr);
+            mossamr.takeDamage(volthDamage, volthesis);
         }
     }
 

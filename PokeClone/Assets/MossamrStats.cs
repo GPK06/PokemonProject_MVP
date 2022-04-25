@@ -49,7 +49,15 @@ public class MossamrStats : MonoBehaviour
     public void damageDone(VolthesisStats volthesis, string typeBeingUsed)
     {
         //Damage = ((((2 * Level / 5 + 2) * AttackStat * AttackPower / DefenseStat) / 50) + 2) * STAB * Weakness/Resistance * RandomNumber / 100
-        
+
+        int effective = effectiveness(typeBeingUsed);
+        int attackPower = 80;
+        int attackStat = getSpecialAttack();
+        int defenseStat = volthesis.getSpecialDefense();
+        int randomNum = Random.Range(85, 101) / 100;
+
+        int damage = ((((2 * 50 / 5 + 2) * attackStat * attackPower / defenseStat) / 50) + 2) * 1.5 * effective * randomNum / 100;
+        return damage;
     }
 
     public void takeDamage(int damage, VolthesisStats volthesis)
@@ -111,14 +119,14 @@ public class MossamrStats : MonoBehaviour
 
     public void addWeakness()
     {
-        weakness.Add("fire 2"); //4x weakness
+        weakness.Add("fire"); //4x weakness
         weakness.Add("fighting");
     }
 
     public void addResistance()
     {
         resistance.Add("normal");
-        resistance.Add("grass 2"); // 4x weakness
+        resistance.Add("grass"); // 4x weakness
         resistance.Add("water");
         resistance.Add("electric");
         resistance.Add("psychic");
@@ -131,5 +139,32 @@ public class MossamrStats : MonoBehaviour
     public void addImmunity()
     {
         immunity.Add("poison");
+    }
+
+    public bool effectiveness(string type)
+    {
+        int numerator = 1;
+        int denominator = 1;
+        string setType;
+        if (weakness.Contains(type))
+        {
+            setType = weakness.TryGetValue(type);
+            numerator = 2;
+            if (setType.contains("2"))
+            {
+                numerator = 4;
+            }
+        }
+
+        if (resistance.Contains(type))
+        {
+            setType = weakness.TryGetValue(type);
+            denominator = 2;
+            if (setType.contains("2"))
+            {
+                denominator = 4;
+            }
+        }
+        return numerator / denominator;
     }
 }
