@@ -25,16 +25,16 @@ public class BattleOptions : MonoBehaviour
         string stat;
         if (num == 0)
         {
-            stat = mossamr.getPrimaryStat();
+            stat = mossamr.getPrimaryType();
         } else
         {
-            stat = mossmar.getSecondaryStat();
+            stat = mossamr.getSecondaryType();
         }
 
 
         int mossDamage;
         int volthDamage;
-        if (n == 0)
+        if (n == 1)
         {
             // if int n is a 1 then we are using the primary stat
             mossDamage = mossamr.damageDone(volthesis, stat);
@@ -43,8 +43,8 @@ public class BattleOptions : MonoBehaviour
         else
         {
             // if int n is a 2 then we are using the secondary stat
-            mossDamage = mossmar.damageDone(volthesis, stat);
-            volthDamage = mossmar.damageDone(mossamr, volthesis.getSecondaryStat());
+            mossDamage = mossamr.damageDone(volthesis, stat);
+            volthDamage = mossamr.damageDone(mossamr, volthesis.getSecondaryStat());
         }
 
         if (volthesis.getSpeed() > mossamr.getSpeed())

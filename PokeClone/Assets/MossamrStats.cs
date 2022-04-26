@@ -46,7 +46,7 @@ public class MossamrStats : MonoBehaviour
         steel = new Move(80, "Attack", "steel");
     }
 
-    public void damageDone(VolthesisStats volthesis, string typeBeingUsed)
+    public int damageDone(VolthesisStats volthesis, string typeBeingUsed)
     {
         //Damage = ((((2 * Level / 5 + 2) * AttackStat * AttackPower / DefenseStat) / 50) + 2) * STAB * Weakness/Resistance * RandomNumber / 100
 

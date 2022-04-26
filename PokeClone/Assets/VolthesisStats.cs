@@ -50,15 +50,22 @@ public class VolthesisStats : MonoBehaviour
         addImmunity();
     }
 
-    public void damageDone(MossmarStats mossamr, string typeBeingUsed)
+    public int damageDone(MossamrStats mossamr, string typeBeingUsed)
     {
         //Damage = ((((2 * Level / 5 + 2) * AttackStat * AttackPower / DefenseStat) / 50) + 2) * STAB * Weakness/Resistance * RandomNumber / 100
+        //Level will just be 50 before a level up system is added.
 
         int effective = effectiveness(typeBeingUsed);
-        int attackPower = fire.getBasePower;
 
-        if (typeBeingUsed)
-        int attackStat = getSpecialAttack();
+        int attackPower;
+        if (fire.getType().Equals(typeBeingUsed)) { 
+            attackPower = fire.getBasePower();
+        } else
+        {
+            attackPower = fairy.getBasePower();
+        }
+
+        int attackStat = getSpecialAttack(); // will have to use the move.getAttackStatBeingUsed
         int defenseStat = mossamr.getSpecialDefense();
         int randomNum = Random.Range(85, 101) / 100;
 
@@ -66,30 +73,40 @@ public class VolthesisStats : MonoBehaviour
         return damage;
     }
 
-    public bool effectiveness(string type)
+    public int effectiveness(string type)
     {
         int numerator = 1;
         int denominator = 1;
-        string setType;
-        if (weakness.Contains(type))
+        
+        if (immunity.Contains(type))
         {
-            setType = weakness.TryGetValue(type, out type);
-            numerator = 2;
-            if (setType.contains("2"))
+            return 0;
+        }
+
+        foreach (string weaknessType in weakness)
+        {
+            if (String.Contains(type, weaknessType, 1) == 0)
             {
-                numerator = 4;
+                numerator = 2;
+                if (String.Contains("2", weaknessType, 1) == String.Contains("2", weaknessType, 1))
+                {
+                    numerator = 4;
+                }
             }
         }
 
-        if (resistance.Contains(type))
+        foreach (string resistanceType in resistance)
         {
-            setType = weakness.TryGetValue(type, out type);
-            denominator = 2;
-            if (setType.contains("2"))
+            if (String.Contains(type, resistanceType, 1) == 0)
             {
-                denominator = 4;
+                denominator = 2;
+                if (String.Contains("2", resistanceType, 1) == String.Contains("2", resistanceType, 1))
+                {
+                    denominator = 4;
+                }
             }
         }
+
         return numerator / denominator;
     }
 
