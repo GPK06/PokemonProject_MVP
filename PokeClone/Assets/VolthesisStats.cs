@@ -9,7 +9,7 @@ public class VolthesisStats : MonoBehaviour
     public string secondaryType = "Fairy";
 
     public int MaxHealth = 87;
-    public int currentHealth;
+    public double currentHealth;
     
     public int maxSpeed = 87;
     public int currentSpeed;
@@ -50,12 +50,12 @@ public class VolthesisStats : MonoBehaviour
         addImmunity();
     }
 
-    public int damageDone(MossamrStats mossamr, string typeBeingUsed)
+    public double damageDone(MossamrStats mossamr, string typeBeingUsed)
     {
         //Damage = ((((2 * Level / 5 + 2) * AttackStat * AttackPower / DefenseStat) / 50) + 2) * STAB * Weakness/Resistance * RandomNumber / 100
         //Level will just be 50 before a level up system is added.
 
-        int effective = effectiveness(typeBeingUsed);
+        double effective = effectiveness(typeBeingUsed);
 
         int attackPower;
         if (fire.getType().Equals(typeBeingUsed)) { 
@@ -67,17 +67,21 @@ public class VolthesisStats : MonoBehaviour
 
         int attackStat = getSpecialAttack(); // will have to use the move.getAttackStatBeingUsed
         int defenseStat = mossamr.getSpecialDefense();
-        int randomNum = Random.Range(85, 101) / 100;
+        double randomNum = Random.Range(85, 101);
+        randomNum /= 100;
 
-        int damage = ((((2 * 50 / 5 + 2) * attackStat * attackPower / defenseStat) / 50) + 2) * 1.5 * effective * randomNum / 100;
+        Debug.Log("Stats: " + attackStat + " " + attackPower + " " + defenseStat + " " + effective + " " + randomNum);
+
+        double damage = ((((2 * 50 / 5 + 2) * attackStat * attackPower / defenseStat) / 50) + 2) * 1.5 * effective * randomNum / 100;
         return damage;
     }
 
-    public int effectiveness(string type)
+    public double effectiveness(string type)
     {
         int numerator = 1;
         int denominator = 1;
-        
+        int stringReturnVal = 0;
+
         if (immunity.Contains(type))
         {
             return 0;
@@ -85,10 +89,12 @@ public class VolthesisStats : MonoBehaviour
 
         foreach (string weaknessType in weakness)
         {
-            if (String.Contains(type, weaknessType, 1) == 0)
+            stringReturnVal = System.String.Compare(type, weaknessType, System.StringComparison.CurrentCultureIgnoreCase);
+            if (stringReturnVal == 0)
             {
                 numerator = 2;
-                if (String.Contains("2", weaknessType, 1) == String.Contains("2", weaknessType, 1))
+
+                if (System.String.Compare("2", weaknessType, System.StringComparison.CurrentCultureIgnoreCase) > -1)
                 {
                     numerator = 4;
                 }
@@ -97,20 +103,24 @@ public class VolthesisStats : MonoBehaviour
 
         foreach (string resistanceType in resistance)
         {
-            if (String.Contains(type, resistanceType, 1) == 0)
+            stringReturnVal = System.String.Compare(type, resistanceType, System.StringComparison.CurrentCultureIgnoreCase);
+            if (stringReturnVal == 0)
             {
                 denominator = 2;
-                if (String.Contains("2", resistanceType, 1) == String.Contains("2", resistanceType, 1))
+                if (System.String.Compare("2", resistanceType, System.StringComparison.CurrentCultureIgnoreCase) > -1)
                 {
                     denominator = 4;
                 }
             }
         }
 
-        return numerator / denominator;
+        double returnVal = numerator;
+        returnVal /= denominator;
+        
+        return returnVal;
     }
 
-    public void takeDamage(int damage, MossamrStats mossamr)
+    public void takeDamage(double damage, MossamrStats mossamr)
     {
         currentHealth -= damage;
         Debug.Log("Volthesis took " + damage + " hitpoints of damage.");
@@ -129,7 +139,7 @@ public class VolthesisStats : MonoBehaviour
         SceneManager.LoadScene("Route 1");
     }
 
-    public int getHealth()
+    public double getHealth()
     {
         return currentHealth;
     }

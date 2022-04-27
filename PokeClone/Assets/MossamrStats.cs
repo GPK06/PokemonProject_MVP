@@ -9,7 +9,7 @@ public class MossamrStats : MonoBehaviour
     public string secondaryType = "Steel";
 
     public int MaxHealth = 87;
-    public int currentHealth;
+    public double currentHealth;
 
     public int maxSpeed = 87;
     public int currentSpeed;
@@ -46,21 +46,79 @@ public class MossamrStats : MonoBehaviour
         steel = new Move(80, "Attack", "steel");
     }
 
-    public int damageDone(VolthesisStats volthesis, string typeBeingUsed)
+    public double damageDone(VolthesisStats volthesis, string typeBeingUsed)
     {
         //Damage = ((((2 * Level / 5 + 2) * AttackStat * AttackPower / DefenseStat) / 50) + 2) * STAB * Weakness/Resistance * RandomNumber / 100
+        //Level will just be 50 before a level up system is added.
 
-        int effective = effectiveness(typeBeingUsed);
-        int attackPower = 80;
-        int attackStat = getSpecialAttack();
+        double effective = effectiveness(typeBeingUsed);
+
+        int attackPower;
+        if (grass.getType().Equals(typeBeingUsed))
+        {
+            attackPower = grass.getBasePower();
+        }
+        else
+        {
+            attackPower = steel.getBasePower();
+        }
+
+        int attackStat = getSpecialAttack(); // will have to use the move.getAttackStatBeingUsed
         int defenseStat = volthesis.getSpecialDefense();
-        int randomNum = Random.Range(85, 101) / 100;
+        double randomNum = Random.Range(85, 101);
+        randomNum /= 100;
 
-        int damage = ((((2 * 50 / 5 + 2) * attackStat * attackPower / defenseStat) / 50) + 2) * 1.5 * effective * randomNum / 100;
+        Debug.Log("Stats: " + attackStat + " " + attackPower + " " + defenseStat + " " + effective + " " + randomNum);
+
+        double damage = ((((2 * 50 / 5 + 2) * attackStat * attackPower / defenseStat) / 50) + 2) * 1.5 * effective * randomNum / 100;
         return damage;
     }
 
-    public void takeDamage(int damage, VolthesisStats volthesis)
+    public double effectiveness(string type)
+    {
+        int numerator = 1;
+        int denominator = 1;
+        int stringReturnVal = 0;
+
+        if (immunity.Contains(type))
+        {
+            return 0;
+        }
+
+        foreach (string weaknessType in weakness)
+        {
+            stringReturnVal = System.String.Compare(type, weaknessType, System.StringComparison.CurrentCultureIgnoreCase);
+            if (stringReturnVal == 0)
+            {
+                numerator = 2;
+
+                if (System.String.Compare("2", weaknessType, System.StringComparison.CurrentCultureIgnoreCase) > -1)
+                {
+                    numerator = 4;
+                }
+            }
+        }
+
+        foreach (string resistanceType in resistance)
+        {
+            stringReturnVal = System.String.Compare(type, resistanceType, System.StringComparison.CurrentCultureIgnoreCase);
+            if (stringReturnVal == 0)
+            {
+                denominator = 2;
+                if (System.String.Compare("2", resistanceType, System.StringComparison.CurrentCultureIgnoreCase) > -1)
+                {
+                    denominator = 4;
+                }
+            }
+        }
+
+        double returnVal = numerator;
+        returnVal /= denominator;
+
+        return returnVal;
+    }
+
+    public void takeDamage(double damage, VolthesisStats volthesis)
     {
         currentHealth -= damage;
         Debug.Log("Mossamr took " + damage + " hitpoints of damage.");
@@ -77,7 +135,7 @@ public class MossamrStats : MonoBehaviour
         SceneManager.LoadScene("Route 1");
     }
 
-    public int getHealth()
+    public double getHealth()
     {
         return currentHealth;
     }
@@ -139,32 +197,5 @@ public class MossamrStats : MonoBehaviour
     public void addImmunity()
     {
         immunity.Add("poison");
-    }
-
-    public bool effectiveness(string type)
-    {
-        int numerator = 1;
-        int denominator = 1;
-        string setType;
-        if (weakness.Contains(type))
-        {
-            setType = weakness.TryGetValue(type);
-            numerator = 2;
-            if (setType.contains("2"))
-            {
-                numerator = 4;
-            }
-        }
-
-        if (resistance.Contains(type))
-        {
-            setType = weakness.TryGetValue(type);
-            denominator = 2;
-            if (setType.contains("2"))
-            {
-                denominator = 4;
-            }
-        }
-        return numerator / denominator;
     }
 }
