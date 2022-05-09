@@ -5,25 +5,27 @@ using UnityEngine.SceneManagement;
 
 public class PokemonStats : MonoBehaviour
 {
+    public string name;
+
     public string primaryType;
     public string secondaryType;
 
     public int MaxHealth;
     public double currentHealth;
 
-    public int maxSpeed;
+    public int MaxSpeed;
     public int currentSpeed;
 
-    public int maxAttack;
+    public int MaxAttack;
     public int currentAttack;
 
-    public int maxSpecialAttack;
+    public int MaxSpecialAttack;
     public int currentSpecialAttack;
 
-    public int maxDefense;
+    public int MaxDefense;
     public int currentDefense;
 
-    public int maxSpecialDefense;
+    public int MaxSpecialDefense;
     public int currentSpecialDefense;
 
     public Move primaryMove;
@@ -33,17 +35,26 @@ public class PokemonStats : MonoBehaviour
     public HashSet<string> resistance;
     public HashSet<string> immunity;
 
-    public PokemonStats(string primary, string secondary, int health, int speed, int attack, int spAttack, int defense, int spDefense, HashSet<string> weaknessP, HashSet<string> resistanceP, HashSet<string> immunityP);
+    public PokemonStats(string name, string primary, string secondary, int health, int speed, int attack, int spAttack, int defense, int spDefense, HashSet<string> weaknessP, HashSet<string> resistanceP, HashSet<string> immunityP)
     {
+        this.name = name;
+        
         primaryType = primary;
         secondaryType = secondary;
 
-        currentHealth = health;
-        currentSpeed = speed;
-        currentAttack = attack;
-        currentSpecialAttack = spAttack;
-        currentDefense = defense;
-        currentSpecialDefense = spDefense;
+        MaxHealth = health;
+        MaxSpeed= speed;
+        MaxAttack = attack;
+        MaxSpecialAttack = spAttack;
+        MaxDefense = defense;
+        MaxSpecialDefense = spDefense;
+
+        currentHealth = MaxHealth;
+        currentSpeed = MaxSpeed;
+        currentSpecialAttack = MaxSpecialAttack;
+        currentAttack = MaxAttack;
+        currentSpecialDefense = MaxSpecialDefense;
+        currentDefense = MaxDefense;
 
         weakness = weaknessP;
         resistance = resistanceP;
@@ -53,7 +64,7 @@ public class PokemonStats : MonoBehaviour
         secondaryType = new Move(80, "Attack", secondary);
     }
 
-    public double damageDone(VolthesisStats volthesis, string typeBeingUsed, double effective)
+    public double damageDone(PokemonStats pokemon, string typeBeingUsed, double effective)
     {
         //Damage = ((((2 * Level / 5 + 2) * AttackStat * AttackPower / DefenseStat) / 50) + 2) * STAB * Weakness/Resistance * RandomNumber / 100
         //Level will just be 50 before a level up system is added.
@@ -62,15 +73,15 @@ public class PokemonStats : MonoBehaviour
 
         int attackPower;
         Move type;
-        if (grass.getType().Equals(typeBeingUsed))
+        if (primaryMove.getType().Equals(typeBeingUsed))
         {
-            type = grass;
-            attackPower = grass.getBasePower();
+            type = primaryMove;
+            attackPower = primaryMove.getBasePower();
         }
         else
         {
-            type = steel;
-            attackPower = steel.getBasePower();
+            type = secondaryMove;
+            attackPower = secondaryMove.getBasePower();
         }
 
         int attackStat;
@@ -79,12 +90,12 @@ public class PokemonStats : MonoBehaviour
         if (type.getType().Equals("SpecialAttack"))
         {
             attackStat = getSpecialAttack(); // will have to use the move.getAttackStatBeingUsed
-            defenseStat = volthesis.getSpecialDefense();
+            defenseStat = pokemon.getSpecialDefense();
         }
         else
         {
             attackStat = getAttack();
-            defenseStat = volthesis.getDefense();
+            defenseStat = pokemon.getDefense();
         }
 
         double randomNum = Random.Range(85, 101);
@@ -138,13 +149,13 @@ public class PokemonStats : MonoBehaviour
         return returnVal;
     }
 
-    public void takeDamage(double damage, VolthesisStats volthesis)
+    public void takeDamage(double damage, PokemonStats pokemon)
     {
         currentHealth -= damage;
-        Debug.Log("Mossamr took " + damage + " hitpoints of damage.");
-        Debug.Log("Mossamr current health " + currentHealth + ".");
+        Debug.Log(name + " took " + damage + " hitpoints of damage.");
+        Debug.Log(name + " current health " + currentHealth + ".");
 
-        if (currentHealth <= 0 && volthesis.getHealth() != 0)
+        if (currentHealth <= 0 && pokemon.getHealth() != 0)
         {
             die();
         }
@@ -193,29 +204,5 @@ public class PokemonStats : MonoBehaviour
     public string getSecondaryType()
     {
         return secondaryType;
-    }
-
-    public void addWeakness()
-    {
-        weakness.Add("fire 2"); //4x weakness
-        weakness.Add("fighting");
-    }
-
-    public void addResistance()
-    {
-        resistance.Add("normal");
-        resistance.Add("grass 2"); // 4x weakness
-        resistance.Add("water");
-        resistance.Add("electric");
-        resistance.Add("psychic");
-        resistance.Add("rock");
-        resistance.Add("dragon");
-        resistance.Add("steel");
-        resistance.Add("fairy");
-    }
-
-    public void addImmunity()
-    {
-        immunity.Add("poison");
     }
 }
