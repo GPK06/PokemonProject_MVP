@@ -5,25 +5,25 @@ using UnityEngine.SceneManagement;
 
 public class VolthesisStats : MonoBehaviour
 {
-    public string primaryType = "Fire";
-    public string secondaryType = "Fairy";
+    public string primaryType = "fire";
+    public string secondaryType = "fairy";
 
-    public int MaxHealth = 87;
+    public int MaxHealth = 110;
     public double currentHealth;
     
-    public int maxSpeed = 87;
+    public int maxSpeed = 21;
     public int currentSpeed;
 
-    public int maxAttack = 87;
+    public int maxAttack = 55;
     public int currentAttack;
 
-    public int maxSpecialAttack = 87;
+    public int maxSpecialAttack = 143;
     public int currentSpecialAttack;
 
-    public int maxDefense = 87;
+    public int maxDefense = 129;
     public int currentDefense;
 
-    public int maxSpecialDefense = 87;
+    public int maxSpecialDefense = 72;
     public int currentSpecialDefense;
 
     public Move fire;
@@ -50,29 +50,86 @@ public class VolthesisStats : MonoBehaviour
         addImmunity();
     }
 
-    public double damageDone(MossamrStats mossamr, string typeBeingUsed)
+    public double damageDone(MossamrStats mossamr, string typeBeingUsed, double effective)
     {
         //Damage = ((((2 * Level / 5 + 2) * AttackStat * AttackPower / DefenseStat) / 50) + 2) * STAB * Weakness/Resistance * RandomNumber / 100
         //Level will just be 50 before a level up system is added.
 
-        double effective = effectiveness(typeBeingUsed);
+        //double effective = effectiveness(typeBeingUsed);
 
         int attackPower;
-        if (fire.getType().Equals(typeBeingUsed)) { 
+        Move type;
+        if (fire.getType().Equals(typeBeingUsed)) {
+            type = fire;
             attackPower = fire.getBasePower();
         } else
         {
+            type = fairy;
             attackPower = fairy.getBasePower();
         }
 
-        int attackStat = getSpecialAttack(); // will have to use the move.getAttackStatBeingUsed
-        int defenseStat = mossamr.getSpecialDefense();
+        int attackStat;
+        int defenseStat;
+
+        if (type.getType().Equals("SpecialAttack"))
+        {
+            attackStat = getSpecialAttack(); // will have to use the move.getAttackStatBeingUsed
+            defenseStat = mossamr.getSpecialDefense();
+        } else
+        {
+            attackStat = getAttack();
+            defenseStat = mossamr.getDefense();
+        }
+
         double randomNum = Random.Range(85, 101);
         randomNum /= 100;
 
-        Debug.Log("Stats: " + attackStat + " " + attackPower + " " + defenseStat + " " + effective + " " + randomNum);
+        Debug.Log("Stats: volthesis" + effective);
 
-        double damage = ((((2 * 50 / 5 + 2) * attackStat * attackPower / defenseStat) / 50) + 2) * 1.5 * effective * randomNum / 100;
+        double damage = ((((2 * 50 / 5 + 2) * attackStat * attackPower / defenseStat) / 50) + 2) * 1.5 * effective * randomNum;
+        return damage;
+    }
+
+    public double damageDoneWargo(WargoStats wargo, string typeBeingUsed, double effective)
+    {
+        //Damage = ((((2 * Level / 5 + 2) * AttackStat * AttackPower / DefenseStat) / 50) + 2) * STAB * Weakness/Resistance * RandomNumber / 100
+        //Level will just be 50 before a level up system is added.
+
+        //double effective = effectiveness(typeBeingUsed);
+
+        int attackPower;
+        Move type;
+        if (fire.getType().Equals(typeBeingUsed))
+        {
+            type = fire;
+            attackPower = fire.getBasePower();
+        }
+        else
+        {
+            type = fairy;
+            attackPower = fairy.getBasePower();
+        }
+
+        int attackStat;
+        int defenseStat;
+
+        if (type.getType().Equals("SpecialAttack"))
+        {
+            attackStat = getSpecialAttack(); // will have to use the move.getAttackStatBeingUsed
+            defenseStat = wargo.getSpecialDefense();
+        }
+        else
+        {
+            attackStat = getAttack();
+            defenseStat = wargo.getDefense();
+        }
+
+        double randomNum = Random.Range(85, 101);
+        randomNum /= 100;
+
+        Debug.Log("Stats: volthesis" + effective);
+
+        double damage = ((((2 * 50 / 5 + 2) * attackStat * attackPower / defenseStat) / 50) + 2) * 1.5 * effective * randomNum;
         return damage;
     }
 
@@ -89,12 +146,11 @@ public class VolthesisStats : MonoBehaviour
 
         foreach (string weaknessType in weakness)
         {
-            stringReturnVal = System.String.Compare(type, weaknessType, System.StringComparison.CurrentCultureIgnoreCase);
-            if (stringReturnVal == 0)
+            if (weaknessType.Contains(type))
             {
                 numerator = 2;
 
-                if (System.String.Compare("2", weaknessType, System.StringComparison.CurrentCultureIgnoreCase) > -1)
+                if (weaknessType.Contains("2"))
                 {
                     numerator = 4;
                 }
@@ -103,11 +159,10 @@ public class VolthesisStats : MonoBehaviour
 
         foreach (string resistanceType in resistance)
         {
-            stringReturnVal = System.String.Compare(type, resistanceType, System.StringComparison.CurrentCultureIgnoreCase);
-            if (stringReturnVal == 0)
+            if (resistanceType.Contains(type))
             {
                 denominator = 2;
-                if (System.String.Compare("2", resistanceType, System.StringComparison.CurrentCultureIgnoreCase) > -1)
+                if (resistanceType.Contains(type))
                 {
                     denominator = 4;
                 }
@@ -116,7 +171,7 @@ public class VolthesisStats : MonoBehaviour
 
         double returnVal = numerator;
         returnVal /= denominator;
-        
+
         return returnVal;
     }
 
@@ -127,6 +182,18 @@ public class VolthesisStats : MonoBehaviour
         Debug.Log("Volthesis current health " + currentHealth + ".");
 
         if (currentHealth <= 0 && mossamr.getHealth() != 0)
+        {
+            die();
+        }
+    }
+
+    public void takeDamageWargo(double damage, WargoStats wargo)
+    {
+        currentHealth -= damage;
+        Debug.Log("Volthesis took " + damage + " hitpoints of damage.");
+        Debug.Log("Volthesis current health " + currentHealth + ".");
+
+        if (currentHealth <= 0 && wargo.getHealth() != 0)
         {
             die();
         }
@@ -194,7 +261,7 @@ public class VolthesisStats : MonoBehaviour
         resistance.Add("ice");
         resistance.Add("fighting");
         resistance.Add("fairy");
-        resistance.Add("bug"); // 4x resistance
+        resistance.Add("bug 2"); // 4x resistance
         resistance.Add("dark");
     }
 

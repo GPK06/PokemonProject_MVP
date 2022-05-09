@@ -36,7 +36,15 @@ public class PlayerMovement : MonoBehaviour
         
         if (num == 1)
         {
-            SceneManager.LoadScene("BATTLE");
+            if (collision.name.Equals("EncounterBoxWargo"))
+            {
+                SceneManager.LoadScene("BattleWargo");
+            }
+            else
+            {
+                SceneManager.LoadScene("BATTLE");
+            }
         }
+
     }
 }

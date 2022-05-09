@@ -3,51 +3,54 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MossamrStats : MonoBehaviour
+public class PokemonStats : MonoBehaviour
 {
-    public string primaryType = "grass";
-    public string secondaryType = "steel";
+    public string primaryType;
+    public string secondaryType;
 
-    public int MaxHealth = 78;
+    public int MaxHealth;
     public double currentHealth;
 
-    public int maxSpeed = 75;
+    public int maxSpeed;
     public int currentSpeed;
 
-    public int maxAttack = 120;
+    public int maxAttack;
     public int currentAttack;
 
-    public int maxSpecialAttack = 41;
+    public int maxSpecialAttack;
     public int currentSpecialAttack;
 
-    public int maxDefense = 136;
+    public int maxDefense;
     public int currentDefense;
 
-    public int maxSpecialDefense = 80;
+    public int maxSpecialDefense;
     public int currentSpecialDefense;
 
-    public Move grass;
-    public Move steel;
+    public Move primaryMove;
+    public Move secondaryMove;
 
-    private HashSet<string> weakness = new HashSet<string>();
-    private HashSet<string> resistance = new HashSet<string>();
-    private HashSet<string> immunity = new HashSet<string>();
+    public HashSet<string> weakness;
+    public HashSet<string> resistance;
+    public HashSet<string> immunity;
 
-    public MossamrStats()
+    public PokemonStats(string primary, string secondary, int health, int speed, int attack, int spAttack, int defense, int spDefense, HashSet<string> weaknessP, HashSet<string> resistanceP, HashSet<string> immunityP);
     {
-        currentHealth = MaxHealth;
-        currentSpeed = maxSpeed;
-        currentAttack = maxAttack;
-        currentSpecialAttack = maxSpecialAttack;
-        currentDefense = maxDefense;
-        currentSpecialDefense = maxSpecialDefense;
+        primaryType = primary;
+        secondaryType = secondary;
 
-        addImmunity();
-        addResistance();
-        addWeakness();
-           
-        grass = new Move(80, "Attack", "grass");
-        steel = new Move(80, "Attack", "steel");
+        currentHealth = health;
+        currentSpeed = speed;
+        currentAttack = attack;
+        currentSpecialAttack = spAttack;
+        currentDefense = defense;
+        currentSpecialDefense = spDefense;
+
+        weakness = weaknessP;
+        resistance = resistanceP;
+        immunity = immunityP;
+
+        primaryMove = new Move(80, "Attack", primary);
+        secondaryType = new Move(80, "Attack", secondary);
     }
 
     public double damageDone(VolthesisStats volthesis, string typeBeingUsed, double effective)

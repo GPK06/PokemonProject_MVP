@@ -14,4 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MoveSelection.unity
     guid: c18fac27de1f714468ab38501e498c13
+  - enabled: 1
+    path: Assets/Scenes/MoveSelectionWargo.unity
+    guid: 708794c69b2e670468b1364b19fa1bbe
+  - enabled: 1
+    path: Assets/Scenes/BattleWargo.unity
+    guid: 953cde47a98642348b4d5bfe455b57c9
   m_configObjects: {}
