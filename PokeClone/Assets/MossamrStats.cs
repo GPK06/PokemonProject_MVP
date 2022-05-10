@@ -192,13 +192,13 @@ public class MossamrStats : MonoBehaviour
         return secondaryType;
     }
 
-    public void addWeakness()
+    public void addWeaknessMossamr()
     {
         weakness.Add("fire 2"); //4x weakness
         weakness.Add("fighting");
     }
 
-    public void addResistance()
+    public void addResistanceMossamr()
     {
         resistance.Add("normal");
         resistance.Add("grass 2"); // 4x weakness
@@ -211,7 +211,7 @@ public class MossamrStats : MonoBehaviour
         resistance.Add("fairy");
     }
 
-    public void addImmunity()
+    public void addImmunityMossamr()
     {
         immunity.Add("poison");
     }

@@ -183,13 +183,13 @@ public class WargoStats : MonoBehaviour
         return secondaryType;
     }
 
-    public void addWeakness()
+    public void addWeaknessWargo()
     {
         weakness.Add("fairy"); //4x weakness
         weakness.Add("dragon");
     }
 
-    public void addResistance()
+    public void addResistanceWargo()
     {
         resistance.Add("fire 2");
         resistance.Add("water 2");

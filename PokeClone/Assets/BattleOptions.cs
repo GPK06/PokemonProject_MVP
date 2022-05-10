@@ -5,16 +5,39 @@ using UnityEngine.SceneManagement;
 
 public class BattleOptions : MonoBehaviour
 {
-    MossamrStats mossamr;
-    VolthesisStats volthesis;
-    WargoStats wargo;
+    PokemonStats mossamr;
+    PokemonStats volthesis;
+    PokemonStats wargo;
 
 
     public BattleOptions()
     {
-        mossamr = new MossamrStats();
-        volthesis = new VolthesisStats();
-        wargo = new WargoStats();
+        HashSet<string> weaknessMossamr = new HashSet<string>();
+        HashSet<string> resistanceMossamr = new HashSet<string>();
+        HashSet<string> immunityMossamr = new HashSet<string>();
+        
+        HashSet<string> weaknessVolthesis = new HashSet<string>();
+        HashSet<string> resistanceVolthesis = new HashSet<string>();
+        HashSet<string> immunityVolthesis = new HashSet<string>();
+       
+        HashSet<string> weaknessWargo = new HashSet<string>();
+        HashSet<string> resistanceWargo = new HashSet<string>();
+
+        addWeaknessMossamr();
+        addWeaknessVolthesis();
+        addWeaknessWargo();
+        
+        addResistanceWargo();
+        addResistanceVolthesis();
+        addResistanceMossamr();
+
+        addImmunityVolthesis();
+        addImmunityMossamr();
+
+        //public PokemonStats(string name, string primary, string secondary, int health, int speed, int attack, int spAttack, int defense, int spDefense, HashSet<string> weaknessP, HashSet<string> resistanceP, HashSet<string> immunityP)
+        mossamr = new PokemonStats("Mossamr", "grass", "steel", 78, 75, 120, 41, 136, 80, weaknessMossamr, resistanceMossamr, immunityMossamr);
+        volthesis = new PokemonStats("Volthesis", "fire", "fairy", 110, 21, 55, 143, 129, 72, weaknessVolthesis, resistanceVolthesis, immunityVolthesis);
+        wargo = new PokemonStats("Wargo", "water", "dragon", 54, 88, 104, 104, 90, 90, weaknessWargo, resistanceWargo, null);
     }
 
     public void runAway()
@@ -120,5 +143,66 @@ public class BattleOptions : MonoBehaviour
     public void moveSelectionWargo()
     {
         SceneManager.LoadScene("MoveSelectionWargo");
+    }
+
+    public void addWeaknessMossamr()
+    {
+        weakness.Add("fire 2"); //4x weakness
+        weakness.Add("fighting");
+    }
+
+    public void addResistanceMossamr()
+    {
+        resistance.Add("normal");
+        resistance.Add("grass 2"); // 4x weakness
+        resistance.Add("water");
+        resistance.Add("electric");
+        resistance.Add("psychic");
+        resistance.Add("rock");
+        resistance.Add("dragon");
+        resistance.Add("steel");
+        resistance.Add("fairy");
+    }
+
+    public void addImmunityMossamr()
+    {
+        immunity.Add("poison");
+    }
+
+    public void addWeaknessVolthesis()
+    {
+        weakness.Add("water");
+        weakness.Add("ground");
+        weakness.Add("poison");
+        weakness.Add("rock");
+    }
+
+    public void addResistanceVolthesis()
+    {
+        resistance.Add("fire");
+        resistance.Add("grass");
+        resistance.Add("ice");
+        resistance.Add("fighting");
+        resistance.Add("fairy");
+        resistance.Add("bug 2"); // 4x resistance
+        resistance.Add("dark");
+    }
+
+    public void addImmunityVolthesis()
+    {
+        immunity.Add("dragon");
+    }
+
+    public void addWeaknessWargo()
+    {
+        weakness.Add("fairy"); //4x weakness
+        weakness.Add("dragon");
+    }
+
+    public void addResistanceWargo()
+    {
+        resistance.Add("fire 2");
+        resistance.Add("water 2");
+        resistance.Add("steel");
     }
 }

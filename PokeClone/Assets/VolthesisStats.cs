@@ -246,7 +246,7 @@ public class VolthesisStats : MonoBehaviour
         return secondaryType;
     }
 
-    public void addWeakness()
+    public void addWeaknessVolthesis()
     {
         weakness.Add("water");
         weakness.Add("ground");
@@ -254,7 +254,7 @@ public class VolthesisStats : MonoBehaviour
         weakness.Add("rock");
     }
 
-    public void addResistance()
+    public void addResistanceVolthesis()
     {
         resistance.Add("fire");
         resistance.Add("grass");
@@ -265,7 +265,7 @@ public class VolthesisStats : MonoBehaviour
         resistance.Add("dark");
     }
 
-    public void addImmunity()
+    public void addImmunityVolthesis()
     {
         immunity.Add("dragon");
     }

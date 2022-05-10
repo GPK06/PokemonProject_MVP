@@ -60,8 +60,8 @@ public class PokemonStats : MonoBehaviour
         resistance = resistanceP;
         immunity = immunityP;
 
-        primaryMove = new Move(80, "Attack", primary);
-        secondaryType = new Move(80, "Attack", secondary);
+        primaryMove = new Move(80, "Attack", primaryType);
+        secondaryMove = new Move(80, "Attack", secondaryType);
     }
 
     public double damageDone(PokemonStats pokemon, string typeBeingUsed, double effective)
@@ -113,9 +113,12 @@ public class PokemonStats : MonoBehaviour
         int denominator = 1;
         int stringReturnVal = 0;
 
-        if (immunity.Contains(type))
+        if (immunity != null)
         {
-            return 0;
+            if (immunity.Contains(type))
+            {
+                return 0;
+            }
         }
 
         foreach (string weaknessType in weakness)
