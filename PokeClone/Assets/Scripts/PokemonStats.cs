@@ -213,4 +213,9 @@ public class PokemonStats : MonoBehaviour
     {
         return secondaryType;
     }
+
+    public string getName()
+    {
+        return name;
+    }
 }

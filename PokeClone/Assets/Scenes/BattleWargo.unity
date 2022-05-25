@@ -622,7 +622,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -38.799995, y: -179}
+  m_AnchoredPosition: {x: -51, y: -179}
   m_SizeDelta: {x: 59.6394, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &663960881
@@ -887,7 +887,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 28, y: -170}
+  m_AnchoredPosition: {x: 14.71, y: -179}
   m_SizeDelta: {x: 53.82, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &914758262
@@ -966,7 +966,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 394.83002, y: 130.2}
+  m_AnchoredPosition: {x: 420, y: 130.2}
   m_SizeDelta: {x: 53.82, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1077408435
@@ -1046,7 +1046,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 8.3, y: -156.5}
+  m_AnchoredPosition: {x: 7, y: -164.59}
   m_SizeDelta: {x: 196.21, y: 49.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1304700483
@@ -1178,7 +1178,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 240.4, y: -156.5}
+  m_AnchoredPosition: {x: 264, y: -164.59}
   m_SizeDelta: {x: 196.21, y: 49.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1333099524
@@ -1478,7 +1478,7 @@ GameObject:
   - component: {fileID: 1626273869}
   - component: {fileID: 1626273868}
   m_Layer: 5
-  m_Name: WargokemonName
+  m_Name: EnemyName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1711,7 +1711,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 338.09998, y: 130.2}
+  m_AnchoredPosition: {x: 357, y: 130.2}
   m_SizeDelta: {x: 59.6394, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1956649429

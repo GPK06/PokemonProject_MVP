@@ -875,7 +875,7 @@ GameObject:
   - component: {fileID: 983877758}
   - component: {fileID: 983877757}
   m_Layer: 5
-  m_Name: WargoPokemonName
+  m_Name: EnemyName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

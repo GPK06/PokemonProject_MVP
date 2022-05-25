@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: 111957310}
   - component: {fileID: 111957309}
   m_Layer: 5
-  m_Name: MossamrName
+  m_Name: EnemyName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -939,7 +939,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 425.25, y: 135.71}
+  m_AnchoredPosition: {x: 453, y: 135.71}
   m_SizeDelta: {x: 59.6956, y: 30}
   m_Pivot: {x: 0.50000054, y: 0.5}
 --- !u!114 &1220514346
@@ -1019,7 +1019,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 263, y: -156.42}
+  m_AnchoredPosition: {x: 291, y: -163.31}
   m_SizeDelta: {x: 200.4213, y: 53.583}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1271647637
@@ -1230,7 +1230,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 31, y: -156.42}
+  m_AnchoredPosition: {x: 38, y: -164.51}
   m_SizeDelta: {x: 200.4213, y: 53.583}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1304700483

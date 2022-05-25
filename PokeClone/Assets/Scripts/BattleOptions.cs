@@ -26,7 +26,7 @@ public class BattleOptions : MonoBehaviour
         addWeaknessMossamr();
         addWeaknessVolthesis();
         addWeaknessWargo();
-        
+
         addResistanceWargo();
         addResistanceVolthesis();
         addResistanceMossamr();
@@ -43,6 +43,18 @@ public class BattleOptions : MonoBehaviour
     public void runAway()
     {
         SceneManager.LoadScene("Route 1");
+    }
+
+    public void catchPokemon()
+    {
+        Text name = transform.Find("EnemyName").GetComponent<Text>();
+        if (name.text == "Mossamr")
+        {
+            PokemonParty.add(mossamr);
+        } else
+        {
+            PokemonParty.add(wargo);
+        }
     }
 
     public void battle(int n)
