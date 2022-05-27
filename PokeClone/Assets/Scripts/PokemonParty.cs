@@ -19,9 +19,11 @@ public class PokemonParty : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
+
+        initialize();
     }
 
-    public void start()
+    public void initialize()
     {
         HashSet<string> weaknessVolthesis = new HashSet<string>();
         HashSet<string> resistanceVolthesis = new HashSet<string>();
@@ -43,7 +45,11 @@ public class PokemonParty : MonoBehaviour
 
         immunityVolthesis.Add("dragon");
 
-        PokemonStats volthesis = new PokemonStats("Volthesis", "fire", "fairy", 110, 21, 55, 143, 129, 72, weaknessVolthesis, resistanceVolthesis, immunityVolthesis);
+        PokemonStats volthesis;
+
+        volthesis = new PokemonStats("Volthesis", "fire", "fairy", 110, 21, 55, 143, 129, 72, weaknessVolthesis, resistanceVolthesis, immunityVolthesis);
+
+        Debug.Log(volthesis.getName());
 
         add(volthesis);
     }

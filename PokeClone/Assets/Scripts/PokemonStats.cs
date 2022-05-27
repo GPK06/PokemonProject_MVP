@@ -5,8 +5,10 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
-public class PokemonStats : MonoBehaviour
+public class PokemonStats
 {
+    public GameObject Health;
+
     public string name;
 
     public string primaryType;
@@ -113,7 +115,6 @@ public class PokemonStats : MonoBehaviour
     {
         int numerator = 1;
         int denominator = 1;
-        int stringReturnVal = 0;
 
         if (immunity != null)
         {
@@ -158,9 +159,11 @@ public class PokemonStats : MonoBehaviour
     {
         currentHealth -= damage;
 
+        Health = GameObject.Find("Canvas/currentHealth");
+
         Text healthText;
         //levelText = transform.Find(“levelText”).GetComponent<Text>();
-        healthText = transform.Find("currentHealth").GetComponent<Text>();
+        healthText = Health.transform.Find("currentHealth").GetComponent<Text>();
         healthText.text = currentHealth + "";
 
         if (currentHealth <= 0 && pokemon.getHealth() != 0)

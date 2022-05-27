@@ -25,7 +25,6 @@ public class viewParty : MonoBehaviour
 
     void Resume()
     {
-        
         pauseMenuUI.SetActive(false);
         viewingParty = false;
     }
@@ -40,11 +39,20 @@ public class viewParty : MonoBehaviour
     void fillInValues(PokemonStats[] pokemonArray)
     {
         string imageName;
+        string textName;
         for (int i = 0; i < 6; i++)
         {
             imageName = "Image" + i;
-            Image pokemonImage = pauseMenuUI.transform.Find("Image").GetComponent<Image>();
-            pokemonImage.Image = Resources.Load<Sprite>(pokemonArray[i].getName());
+            textName = "Text" + i;
+            Image pokemonImage = pauseMenuUI.transform.Find(imageName).GetComponent<Image>();
+            Text pokemonName = pauseMenuUI.transform.Find(textName).GetComponent<Text>();
+
+            if (pokemonArray[i] != null)
+            {
+                PokemonStats pokemon = pokemonArray[i];
+                pokemonImage.sprite = Resources.Load<Sprite>(pokemonArray[i].getName());
+                pokemonName.text = pokemon.getName();
+            }
         }
     }
 }
