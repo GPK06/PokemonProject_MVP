@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class PokemonStats
 {
-    public GameObject Health;
+    public GameObject Canvas;
 
     public string name;
 
@@ -159,11 +159,11 @@ public class PokemonStats
     {
         currentHealth -= damage;
 
-        Health = GameObject.Find("Canvas/currentHealth");
+        Canvas = GameObject.FindWithTag("Canvas");
 
         Text healthText;
         //levelText = transform.Find(“levelText”).GetComponent<Text>();
-        healthText = Health.transform.Find("currentHealth").GetComponent<Text>();
+        healthText = Canvas.transform.Find("currentHealth").GetComponent<Text>();
         healthText.text = currentHealth + "";
 
         if (currentHealth <= 0 && pokemon.getHealth() != 0)

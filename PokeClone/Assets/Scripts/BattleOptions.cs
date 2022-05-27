@@ -164,7 +164,7 @@ public class BattleOptions : MonoBehaviour
     {
         SceneManager.LoadScene("MoveSelection");
     }
-    
+
     public void moveSelectionWargo()
     {
         SceneManager.LoadScene("MoveSelectionWargo");
@@ -229,5 +229,20 @@ public class BattleOptions : MonoBehaviour
         resistanceWargo.Add("fire 2");
         resistanceWargo.Add("water 2");
         resistanceWargo.Add("steel");
+    }
+
+    public void catchPokemon(Text name) 
+    {
+        Debug.Log("I am running");
+        string nameOfPokemon = name.text;
+        if (nameOfPokemon.Equals("Wargo"))
+        {
+            PokemonParty.add(wargo);
+        } else
+        {
+            Debug.Log("I am being added");
+            PokemonParty.add(mossamr);
+        }
+        runAway();
     }
 }

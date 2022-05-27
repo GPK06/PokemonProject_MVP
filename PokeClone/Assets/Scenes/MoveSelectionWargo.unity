@@ -390,7 +390,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 246, y: -153.88}
+  m_AnchoredPosition: {x: 246, y: -160.78}
   m_SizeDelta: {x: 180.33, y: 43.719}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &618280887
@@ -517,22 +517,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b65813fe2d6c51c45ba4c5bbca9eacea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  primaryType: Fire
-  secondaryType: Fairy
-  MaxHealth: 87
-  currentHealth: 87
-  maxSpeed: 87
-  currentSpeed: 87
-  maxAttack: 87
-  currentAttack: 87
-  maxSpecialAttack: 87
-  currentSpecialAttack: 87
-  maxDefense: 87
-  currentDefense: 87
-  maxSpecialDefense: 87
-  currentSpecialDefense: 87
-  fire: {fileID: 0}
-  fairy: {fileID: 0}
 --- !u!212 &642388977
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -628,22 +612,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba5a9251a7f679c4f8a8747406c310f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  primaryType: water
-  secondaryType: dragon
-  MaxHealth: 78
-  currentHealth: 78
-  maxSpeed: 75
-  currentSpeed: 75
-  maxAttack: 120
-  currentAttack: 120
-  maxSpecialAttack: 41
-  currentSpecialAttack: 41
-  maxDefense: 136
-  currentDefense: 136
-  maxSpecialDefense: 80
-  currentSpecialDefense: 80
-  water: {fileID: 0}
-  dragon: {fileID: 0}
 --- !u!212 &720700142
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -722,7 +690,7 @@ GameObject:
   - component: {fileID: 790585290}
   m_Layer: 5
   m_Name: CurrentHealth
-  m_TagString: Untagged
+  m_TagString: Health
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1178,7 +1146,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 18, y: -153.88}
+  m_AnchoredPosition: {x: 13, y: -160.78}
   m_SizeDelta: {x: 180.33, y: 43.719}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1304700483
@@ -1368,7 +1336,7 @@ GameObject:
   - component: {fileID: 1498783858}
   m_Layer: 5
   m_Name: Canvas
-  m_TagString: Untagged
+  m_TagString: Canvas
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

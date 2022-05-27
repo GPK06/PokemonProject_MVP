@@ -1399,7 +1399,7 @@ GameObject:
   - component: {fileID: 1760250226}
   - component: {fileID: 1760250225}
   m_Layer: 5
-  m_Name: PokemonHealth
+  m_Name: CurrentHealth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -237,7 +237,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 5
-  m_Text: M O S S A M R
+  m_Text: Mossamr
 --- !u!222 &111957310
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -670,7 +670,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -194.04, y: -177}
+  m_AnchoredPosition: {x: -182, y: -177}
   m_SizeDelta: {x: 267.0746, y: 22.1207}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1005181602
@@ -749,7 +749,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 453, y: 135.71}
+  m_AnchoredPosition: {x: 433, y: 135}
   m_SizeDelta: {x: 59.6956, y: 30}
   m_Pivot: {x: 0.50000054, y: 0.5}
 --- !u!114 &1220514346
@@ -807,7 +807,7 @@ GameObject:
   - component: {fileID: 1271647638}
   - component: {fileID: 1271647637}
   m_Layer: 5
-  m_Name: SwitchButton
+  m_Name: CatchButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -829,7 +829,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 291, y: -163.31}
+  m_AnchoredPosition: {x: 270, y: -163.31}
   m_SizeDelta: {x: 200.4213, y: 53.583}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1271647637
@@ -878,11 +878,11 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 247729889}
         m_TargetAssemblyTypeName: BattleOptions, Assembly-CSharp
-        m_MethodName: moveSelection
-        m_Mode: 1
+        m_MethodName: catchPokemon
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 111957309}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -960,7 +960,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 39.848, y: -177}
+  m_AnchoredPosition: {x: 44, y: -177}
   m_SizeDelta: {x: 59.6956, y: 30}
   m_Pivot: {x: 0.50000054, y: 0.5}
 --- !u!114 &1280831459

@@ -507,22 +507,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b65813fe2d6c51c45ba4c5bbca9eacea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  primaryType: Fire
-  secondaryType: Fairy
-  MaxHealth: 87
-  currentHealth: 87
-  maxSpeed: 87
-  currentSpeed: 87
-  maxAttack: 87
-  currentAttack: 87
-  maxSpecialAttack: 87
-  currentSpecialAttack: 87
-  maxDefense: 87
-  currentDefense: 87
-  maxSpecialDefense: 87
-  currentSpecialDefense: 87
-  fire: {fileID: 0}
-  fairy: {fileID: 0}
 --- !u!212 &642388977
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -697,22 +681,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64f67eba28f974f42a6fb7f8fc64d84c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  primaryType: Grass
-  secondaryType: Steel
-  MaxHealth: 87
-  currentHealth: 87
-  maxSpeed: 87
-  currentSpeed: 87
-  maxAttack: 87
-  currentAttack: 87
-  maxSpecialAttack: 87
-  currentSpecialAttack: 87
-  maxDefense: 87
-  currentDefense: 87
-  maxSpecialDefense: 87
-  currentSpecialDefense: 87
-  grass: {fileID: 0}
-  steel: {fileID: 0}
 --- !u!212 &720700142
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -966,7 +934,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 420, y: 130.2}
+  m_AnchoredPosition: {x: 396, y: 135}
   m_SizeDelta: {x: 53.82, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1077408435
@@ -1178,7 +1146,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 264, y: -164.59}
+  m_AnchoredPosition: {x: 249, y: -164.59}
   m_SizeDelta: {x: 196.21, y: 49.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1333099524
@@ -1227,11 +1195,11 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 247729889}
         m_TargetAssemblyTypeName: BattleOptions, Assembly-CSharp
-        m_MethodName: moveSelectionWargo
-        m_Mode: 1
+        m_MethodName: catchPokemon
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 1626273868}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1536,7 +1504,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: W A R G O
+  m_Text: Wargo
 --- !u!222 &1626273869
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1711,7 +1679,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 357, y: 130.2}
+  m_AnchoredPosition: {x: 333, y: 134.99998}
   m_SizeDelta: {x: 59.6394, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1956649429
