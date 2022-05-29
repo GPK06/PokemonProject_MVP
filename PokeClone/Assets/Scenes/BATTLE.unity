@@ -201,8 +201,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 196, y: 131.06}
-  m_SizeDelta: {x: 267.0746, y: 22.1207}
+  m_AnchoredPosition: {x: 196, y: 166.19643}
+  m_SizeDelta: {x: 267.0746, y: 24.8995}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &111957309
 MonoBehaviour:
@@ -284,8 +284,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.10300001, y: 0.091000006}
   m_AnchorMax: {x: 0.8388125, y: 0.20833336}
-  m_AnchoredPosition: {x: 85.1758, y: 181.9}
-  m_SizeDelta: {x: 113.7224, y: 365.43}
+  m_AnchoredPosition: {x: 84.598, y: 156.78}
+  m_SizeDelta: {x: 112.56, y: 323.62}
   m_Pivot: {x: 0.5, y: 0.600869}
 --- !u!114 &247729887
 MonoBehaviour:
@@ -446,7 +446,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -39.99997, y: -177}
+  m_AnchoredPosition: {x: -33.7, y: -95.2}
   m_SizeDelta: {x: 41.0083, y: 30}
   m_Pivot: {x: 0.50000054, y: 0.5}
 --- !u!114 &390476890
@@ -591,8 +591,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 350.04, y: 135.71}
-  m_SizeDelta: {x: 41.0083, y: 30}
+  m_AnchoredPosition: {x: 343, y: 167}
+  m_SizeDelta: {x: 41.0083, y: 33.7686}
   m_Pivot: {x: 0.49999902, y: 0.5}
 --- !u!114 &715260374
 MonoBehaviour:
@@ -670,7 +670,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -182, y: -177}
+  m_AnchoredPosition: {x: -175.70004, y: -95.2}
   m_SizeDelta: {x: 267.0746, y: 22.1207}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1005181602
@@ -749,8 +749,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 433, y: 135}
-  m_SizeDelta: {x: 59.6956, y: 30}
+  m_AnchoredPosition: {x: 425.95996, y: 166.2008}
+  m_SizeDelta: {x: 59.6956, y: 33.7686}
   m_Pivot: {x: 0.50000054, y: 0.5}
 --- !u!114 &1220514346
 MonoBehaviour:
@@ -829,8 +829,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 270, y: -163.31}
-  m_SizeDelta: {x: 200.4213, y: 53.583}
+  m_AnchoredPosition: {x: 268.41287, y: -137.99}
+  m_SizeDelta: {x: 185.7956, y: 45.9522}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1271647637
 MonoBehaviour:
@@ -960,7 +960,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 44, y: -177}
+  m_AnchoredPosition: {x: 50.299957, y: -95.2}
   m_SizeDelta: {x: 59.6956, y: 30}
   m_Pivot: {x: 0.50000054, y: 0.5}
 --- !u!114 &1280831459
@@ -1040,8 +1040,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 38, y: -164.51}
-  m_SizeDelta: {x: 200.4213, y: 53.583}
+  m_AnchoredPosition: {x: 31.682007, y: -137.99}
+  m_SizeDelta: {x: 185.1597, y: 45.949}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1304700483
 MonoBehaviour:
@@ -1524,8 +1524,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.10775001, y: 0.09}
   m_AnchorMax: {x: 0.3483125, y: 0.19558336}
-  m_AnchoredPosition: {x: 8.762787, y: -8.53363}
-  m_SizeDelta: {x: 17.5257, y: 9.8709}
+  m_AnchoredPosition: {x: 6.8551025, y: -7.248291}
+  m_SizeDelta: {x: 13.7103, y: 7.3058}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1659139263
 MonoBehaviour:
@@ -1655,7 +1655,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -50, y: 0}
+  m_AnchoredPosition: {x: -60, y: 92.12}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2111708598

@@ -6,10 +6,12 @@ using UnityEngine.UI;
 
 public class BattleOptions : MonoBehaviour
 {
+    // Make new pokemons
     PokemonStats mossamr;
     PokemonStats volthesis;
     PokemonStats wargo;
 
+    // make the sets for the constructor for all of the pokemon
     HashSet<string> weaknessMossamr = new HashSet<string>();
     HashSet<string> resistanceMossamr = new HashSet<string>();
     HashSet<string> immunityMossamr = new HashSet<string>();
@@ -21,8 +23,10 @@ public class BattleOptions : MonoBehaviour
     HashSet<string> weaknessWargo = new HashSet<string>();
     HashSet<string> resistanceWargo = new HashSet<string>();
 
+    // copnctructor to inuitalize all of the fields
     public BattleOptions()
     {
+        // methods to add all of the information to the sets without clogging the constrcutor
         addWeaknessMossamr();
         addWeaknessVolthesis();
         addWeaknessWargo();
@@ -34,19 +38,23 @@ public class BattleOptions : MonoBehaviour
         addImmunityVolthesis();
         addImmunityMossamr();
 
+        // make the pokemon
         //public PokemonStats(string name, string primary, string secondary, int health, int speed, int attack, int spAttack, int defense, int spDefense, HashSet<string> weaknessP, HashSet<string> resistanceP, HashSet<string> immunityP)
         mossamr = new PokemonStats("Mossamr", "grass", "steel", 78, 75, 120, 41, 136, 80, weaknessMossamr, resistanceMossamr, immunityMossamr);
         volthesis = new PokemonStats("Volthesis", "fire", "fairy", 110, 21, 55, 143, 129, 72, weaknessVolthesis, resistanceVolthesis, immunityVolthesis);
         wargo = new PokemonStats("Wargo", "water", "dragon", 54, 88, 104, 104, 90, 90, weaknessWargo, resistanceWargo, null);
     }
 
+    // changes to route 1 if the player ran away
     public void runAway()
     {
         SceneManager.LoadScene("Route 1");
     }
 
+    // catches the pokemon by adding it to the pokemon party array
     public void catchPokemon()
     {
+        // gets the name to see which pokemon is being caught
         Text name = transform.Find("EnemyName").GetComponent<Text>();
         if (name.text == "Mossamr")
         {
@@ -57,16 +65,10 @@ public class BattleOptions : MonoBehaviour
         }
     }
 
+    // goes into battle and depending on the number sent then that is the move done by the pokemon
     public void battle(int n)
     {
-        Text totalHealth;
-        totalHealth = transform.Find("TotalHealth").GetComponent<Text>();
-        totalHealth.text = volthesis.getHealth() + "";
-
-        Text totalHealthMossamr;
-        totalHealthMossamr = transform.Find("TotalHealthMossamr").GetComponent<Text>();
-        totalHealthMossamr.text = mossamr.getHealth() + "";
-
+        // initializes all of the variables that will ned to be used
         string stat;
 
         double mossamrDamage;
@@ -74,11 +76,13 @@ public class BattleOptions : MonoBehaviour
         double mossamrFrac;
         double volthFrac;
 
+        // makes the effectiveness fractions for volthesis and gets the damage done for both different type attacks
         volthFrac = volthesis.effectiveness(mossamr.getPrimaryType());
-        double mossamrDamagePrimary = wargo.damageDone(volthesis, mossamr.getPrimaryType(), volthFrac);
+        double mossamrDamagePrimary = mossamr.damageDone(volthesis, mossamr.getPrimaryType(), volthFrac);
         volthFrac = volthesis.effectiveness(mossamr.getSecondaryType());
-        double mossamrDamageSecondary = wargo.damageDone(volthesis, mossamr.getSecondaryType(), volthFrac);
+        double mossamrDamageSecondary = mossamr.damageDone(volthesis, mossamr.getSecondaryType(), volthFrac);
 
+        // the better dame is done to the players pokemon
         if (mossamrDamagePrimary > mossamrDamageSecondary)
         {
             mossamrDamage = mossamrDamagePrimary;
@@ -101,6 +105,7 @@ public class BattleOptions : MonoBehaviour
             volthDamage = volthesis.damageDone(mossamr, volthesis.getSecondaryType(), mossamrFrac);
         }
 
+        // whichever pokemon is faster attacks first
         if (volthesis.getSpeed() > wargo.getSpeed())
         {
             mossamr.takeDamage(volthDamage, volthesis);
@@ -113,6 +118,7 @@ public class BattleOptions : MonoBehaviour
         }
     }
 
+    // the same battle method but if the enemy pokemon is wargo
     public void battleWargo(int n)
     {
         string stat;
@@ -160,22 +166,26 @@ public class BattleOptions : MonoBehaviour
         }
     }
 
+    // if the player wants to battle then goes to the move selection scene
     public void moveSelection()
     {
         SceneManager.LoadScene("MoveSelection");
     }
 
+    // if the player wants to battle wargo then goes to the wargo scene
     public void moveSelectionWargo()
     {
         SceneManager.LoadScene("MoveSelectionWargo");
     }
 
+    // method to add mossamrs weakness'
     public void addWeaknessMossamr()
     {
         weaknessMossamr.Add("fire 2"); //4x weakness
         weaknessMossamr.Add("fighting");
     }
 
+    // method to add mossamrs resistances
     public void addResistanceMossamr()
     {
         resistanceMossamr.Add("normal");
@@ -189,11 +199,13 @@ public class BattleOptions : MonoBehaviour
         resistanceMossamr.Add("fairy");
     }
 
+    // method to add mossamrs immunities
     public void addImmunityMossamr()
     {
         immunityMossamr.Add("poison");
     }
 
+    // method to add volthesis wekaness'
     public void addWeaknessVolthesis()
     {
         weaknessVolthesis.Add("water");
@@ -202,6 +214,7 @@ public class BattleOptions : MonoBehaviour
         weaknessVolthesis.Add("rock");
     }
 
+    // method to add volthesis resistance's
     public void addResistanceVolthesis()
     {
         resistanceVolthesis.Add("fire");
@@ -213,17 +226,20 @@ public class BattleOptions : MonoBehaviour
         resistanceVolthesis.Add("dark");
     }
 
+    // method to add voltheis immunities
     public void addImmunityVolthesis()
     {
         immunityVolthesis.Add("dragon");
     }
 
+    // method to add wargos weakness'
     public void addWeaknessWargo()
     {
         weaknessWargo.Add("fairy"); //4x weakness
         weaknessWargo.Add("dragon");
     }
 
+    // method to add wargos resistance
     public void addResistanceWargo()
     {
         resistanceWargo.Add("fire 2");
@@ -231,16 +247,15 @@ public class BattleOptions : MonoBehaviour
         resistanceWargo.Add("steel");
     }
 
+    // method to catch pokemon with the name of the pokemon given as the parameter
     public void catchPokemon(Text name) 
     {
-        Debug.Log("I am running");
         string nameOfPokemon = name.text;
         if (nameOfPokemon.Equals("Wargo"))
         {
             PokemonParty.add(wargo);
         } else
         {
-            Debug.Log("I am being added");
             PokemonParty.add(mossamr);
         }
         runAway();

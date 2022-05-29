@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class PokemonParty : MonoBehaviour
 {
+    // make a field of myself so that I do not destroy the object in between scenes so that the party remains universal
     public static PokemonParty Instance;
 
+    // An array of 6 pokemon that will be the party
     public static PokemonStats[] party = new PokemonStats[6]; 
 
+    // This method will run when the object is first made. Which is made when the game starts
     private void Awake()
     {
         // to prevent multiple instances of the PokemonParty
@@ -17,14 +20,17 @@ public class PokemonParty : MonoBehaviour
             return;
         }
 
+        // Make the instance field this class.
         Instance = this;
-        DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(gameObject); // does not destroy the object in between scenes
 
         initialize();
     }
 
+    // initializes the first pokemon in the array
     public void initialize()
     {
+        // makes a set for all the information needed to go in the pokemon
         HashSet<string> weaknessVolthesis = new HashSet<string>();
         HashSet<string> resistanceVolthesis = new HashSet<string>();
         HashSet<string> immunityVolthesis = new HashSet<string>();
@@ -45,15 +51,14 @@ public class PokemonParty : MonoBehaviour
 
         immunityVolthesis.Add("dragon");
 
-        PokemonStats volthesis;
+        PokemonStats volthesis; // make a new variable
 
-        volthesis = new PokemonStats("Volthesis", "fire", "fairy", 110, 21, 55, 143, 129, 72, weaknessVolthesis, resistanceVolthesis, immunityVolthesis);
+        volthesis = new PokemonStats("Volthesis", "fire", "fairy", 110, 21, 55, 143, 129, 72, weaknessVolthesis, resistanceVolthesis, immunityVolthesis); // make the new pokemon
 
-        Debug.Log(volthesis.getName());
-
-        add(volthesis);
+        add(volthesis); 
     }
 
+    // adds the pokemon to the array
     public static void add (PokemonStats Pokemon)
     {
         for (int i = 0; i < 6; i++)
@@ -66,6 +71,7 @@ public class PokemonParty : MonoBehaviour
         }
     }
 
+    // returns the party for use in other scripts
     public static PokemonStats[] getParty()
     {
         return party;
