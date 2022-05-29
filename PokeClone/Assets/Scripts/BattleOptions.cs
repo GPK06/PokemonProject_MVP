@@ -40,9 +40,9 @@ public class BattleOptions : MonoBehaviour
 
         // make the pokemon
         //public PokemonStats(string name, string primary, string secondary, int health, int speed, int attack, int spAttack, int defense, int spDefense, HashSet<string> weaknessP, HashSet<string> resistanceP, HashSet<string> immunityP)
-        mossamr = new PokemonStats("Mossamr", "grass", "steel", 78, 75, 120, 41, 136, 80, weaknessMossamr, resistanceMossamr, immunityMossamr);
-        volthesis = new PokemonStats("Volthesis", "fire", "fairy", 110, 21, 55, 143, 129, 72, weaknessVolthesis, resistanceVolthesis, immunityVolthesis);
-        wargo = new PokemonStats("Wargo", "water", "dragon", 54, 88, 104, 104, 90, 90, weaknessWargo, resistanceWargo, null);
+        mossamr = new PokemonStats("Mossamr", "grass", "steel", 87, 87, 87, 87, 87, 87, weaknessMossamr, resistanceMossamr, immunityMossamr);
+        volthesis = new PokemonStats("Volthesis", "fire", "fairy", 87, 87, 87, 87, 87, 87, weaknessVolthesis, resistanceVolthesis, immunityVolthesis);
+        wargo = new PokemonStats("Wargo", "water", "dragon", 87, 87, 87, 87, 87, 87, weaknessWargo, resistanceWargo, null);
     }
 
     // changes to route 1 if the player ran away
@@ -108,13 +108,13 @@ public class BattleOptions : MonoBehaviour
         // whichever pokemon is faster attacks first
         if (volthesis.getSpeed() > wargo.getSpeed())
         {
-            mossamr.takeDamage(volthDamage, volthesis);
+            mossamr.takeDamageEnemy(volthDamage, volthesis);
             volthesis.takeDamage(mossamrDamage, mossamr);
         }
         else
         {
             volthesis.takeDamage(mossamrDamage, mossamr);
-            mossamr.takeDamage(volthDamage, volthesis);
+            mossamr.takeDamageEnemy(volthDamage, volthesis);
         }
     }
 
@@ -156,13 +156,13 @@ public class BattleOptions : MonoBehaviour
 
         if (volthesis.getSpeed() > wargo.getSpeed())
         {
-            wargo.takeDamage(volthDamage, volthesis);
+            wargo.takeDamageEnemy(volthDamage, volthesis);
             volthesis.takeDamage(wargoDamage, wargo);
         }
         else
         {
             volthesis.takeDamage(wargoDamage, wargo);
-            wargo.takeDamage(volthDamage, volthesis);
+            wargo.takeDamageEnemy(volthDamage, volthesis);
         }
     }
 

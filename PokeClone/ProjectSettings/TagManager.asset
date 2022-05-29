@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Health
   - Canvas
+  - Button
+  - NextButton
   layers:
   - Default
   - TransparentFX

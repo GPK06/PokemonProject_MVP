@@ -7,6 +7,9 @@ using UnityEngine.UI;
 
 public class PokemonStats
 {
+    // a reference to the canvas so that I can change the battle screen
+    public GameObject Canvas;
+
     // all of the fields that the pokemon needs
     public string name;
 
@@ -67,8 +70,8 @@ public class PokemonStats
         immunity = immunityP;
 
         // makes new moves for the pokemon 
-        primaryMove = new Move(80, "Attack", primaryType);
-        secondaryMove = new Move(80, "Attack", secondaryType);
+        primaryMove = new Move(60, "Attack", primaryType);
+        secondaryMove = new Move(60, "Attack", secondaryType);
     }
 
     // method to calculate the damage that the pokemon does with the
@@ -172,8 +175,6 @@ public class PokemonStats
     {
         currentHealth -= damage;
 
-        GameObject Canvas;
-
         Canvas = GameObject.FindWithTag("Canvas");
         
         // changes the value of the text diplayed on the screen
@@ -184,6 +185,26 @@ public class PokemonStats
         // if the pokemon dies then play the death method
         if (currentHealth <= 0 && pokemon.getHealth() != 0)
         {
+            healthText.text = 0 + "";
+            die();
+        }
+    }
+
+    public void takeDamageEnemy(double damage, PokemonStats pokemon)
+    {
+        currentHealth -= damage;
+
+        Canvas = GameObject.FindWithTag("Canvas");
+
+        // changes the value of the text diplayed on the screen
+        Text healthText;
+        healthText = Canvas.transform.Find("EnemyCurrentHealth").GetComponent<Text>();
+        healthText.text = currentHealth + "";
+
+        // if the pokemon dies then play the death method
+        if (currentHealth <= 0 && pokemon.getHealth() != 0)
+        {
+            healthText.text = 0 + "";
             die();
         }
     }
@@ -191,7 +212,15 @@ public class PokemonStats
     // the pokemon dies so the player is sent back to route 1
     public void die()
     {
-        SceneManager.LoadScene("Route 1");
+        GameObject[] buttons = GameObject.FindGameObjectsWithTag("Button");
+
+        foreach (GameObject button in buttons)
+        {
+            button.SetActive(false);
+        }
+
+        GameObject nextButton = GameObject.Find("Canvas/BattleOptions/NextButton");
+        nextButton.SetActive(true);
     }
 
     // returns the health
