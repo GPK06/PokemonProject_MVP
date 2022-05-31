@@ -38,16 +38,56 @@ public class PlayerMovement : MonoBehaviour
         int num = Random.Range(0, 101);
         
         if (num == 1)
-        {   
+        {
             // different encounter boxes for each pokemon (like some routes in pokemon)
             if (collision.name.Equals("EncounterBoxWargo"))
             {
-                SceneManager.LoadScene("BattleWargo");
+                Debug.Log("Wargo");
+
+                HashSet<string> weaknessWargo = new HashSet<string>();
+                HashSet<string> resistanceWargo = new HashSet<string>();
+
+                resistanceWargo.Add("fire 2");
+                resistanceWargo.Add("water 2");
+                resistanceWargo.Add("steel");
+
+                weaknessWargo.Add("fairy");
+                weaknessWargo.Add("dragon");
+
+                PokemonStats wargo = new PokemonStats("Wargo", "water", "dragon", 87, 87, 87, 87, 87, 87, weaknessWargo, resistanceWargo, null);
+
+                PokemonParty.assignPokemonInformation(wargo);
             }
             else
             {
-                SceneManager.LoadScene("BATTLE");
+                Debug.Log("Mossamr");
+                
+                HashSet<string> weaknessMossamr = new HashSet<string>();
+                HashSet<string> resistanceMossamr = new HashSet<string>();
+                HashSet<string> immunityMossamr = new HashSet<string>();
+
+                immunityMossamr.Add("poison");
+
+                resistanceMossamr.Add("normal");
+                resistanceMossamr.Add("grass 2"); // 4x weakness
+                resistanceMossamr.Add("water");
+                resistanceMossamr.Add("electric");
+                resistanceMossamr.Add("psychic");
+                resistanceMossamr.Add("rock");
+                resistanceMossamr.Add("dragon");
+                resistanceMossamr.Add("steel");
+                resistanceMossamr.Add("fairy");
+
+                weaknessMossamr.Add("fire 2"); //4x weakness
+                weaknessMossamr.Add("fighting");
+
+                PokemonStats mossamr = new PokemonStats("Mossamr", "grass", "steel", 87, 87, 87, 87, 87, 87, weaknessMossamr, resistanceMossamr, immunityMossamr);
+
+                PokemonParty.assignPokemonInformation(mossamr);
             }
+
+            SceneManager.LoadScene("BATTLE");
+
         }
 
     }

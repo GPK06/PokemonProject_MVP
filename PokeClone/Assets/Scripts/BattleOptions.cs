@@ -23,6 +23,25 @@ public class BattleOptions : MonoBehaviour
     HashSet<string> weaknessWargo = new HashSet<string>();
     HashSet<string> resistanceWargo = new HashSet<string>();
 
+    public void Awake()
+    {
+        Debug.Log("In Awake Method");
+
+        PokemonStats enemyPokemon = PokemonParty.getEnemyPokemon();
+
+        GameObject Canvas = GameObject.FindWithTag("Canvas");
+
+        Image pokemonImage = Canvas.transform.Find("EnemyPokemon").GetComponent<Image>(); // gets the image name
+        Text pokemonName = Canvas.transform.Find("EnemyName").GetComponent<Text>(); // gets the text
+        Text totalHealth = Canvas.transform.Find("EnemyTotalHealth").GetComponent<Text>(); // gets the text
+        Text currentHealth = Canvas.transform.Find("EnemyCurrentHealth").GetComponent<Text>(); // gets the text
+
+        pokemonImage.sprite = Resources.Load<Sprite>(enemyPokemon.getName()); // changes image
+        pokemonName.text = enemyPokemon.getName(); // changes text
+        currentHealth.text = enemyPokemon.getHealth() + "";
+        totalHealth.text = enemyPokemon.getHealth() + "";
+    }
+
     // copnctructor to inuitalize all of the fields
     public BattleOptions()
     {
@@ -48,6 +67,7 @@ public class BattleOptions : MonoBehaviour
     // changes to route 1 if the player ran away
     public void runAway()
     {
+        Debug.Log("button was pressed");
         SceneManager.LoadScene("Route 1");
     }
 
@@ -68,114 +88,79 @@ public class BattleOptions : MonoBehaviour
     // goes into battle and depending on the number sent then that is the move done by the pokemon
     public void battle(int n)
     {
-        // initializes all of the variables that will ned to be used
-        string stat;
+        // initializes all of the variables that will need to be used
+        //string stat;
 
-        double mossamrDamage;
-        double volthDamage;
-        double mossamrFrac;
-        double volthFrac;
+        PokemonStats enemyPokemon = PokemonParty.getEnemyPokemon();
+
+        PokemonStats[] party = PokemonParty.getParty();
+        PokemonStats currentPokemon = party[0];
+
+        double enemyDamage;
+        double currentDamage;
+        double enemyFrac;
+        double currentFrac;
 
         // makes the effectiveness fractions for volthesis and gets the damage done for both different type attacks
-        volthFrac = volthesis.effectiveness(mossamr.getPrimaryType());
-        double mossamrDamagePrimary = mossamr.damageDone(volthesis, mossamr.getPrimaryType(), volthFrac);
-        volthFrac = volthesis.effectiveness(mossamr.getSecondaryType());
-        double mossamrDamageSecondary = mossamr.damageDone(volthesis, mossamr.getSecondaryType(), volthFrac);
+        currentFrac = currentPokemon.effectiveness(enemyPokemon.getPrimaryType());
+        double enemyDamagePrimary = enemyPokemon.damageDone(currentPokemon, enemyPokemon.getPrimaryType(), currentFrac);
+        currentFrac = currentPokemon.effectiveness(enemyPokemon.getSecondaryType());
+        double enemyDamageSecondary = enemyPokemon.damageDone(volthesis, enemyPokemon.getSecondaryType(), currentFrac); 
 
         // the better dame is done to the players pokemon
-        if (mossamrDamagePrimary > mossamrDamageSecondary)
+        if (enemyDamagePrimary > enemyDamageSecondary)
         {
-            mossamrDamage = mossamrDamagePrimary;
+            enemyDamage = enemyDamagePrimary;
         }
         else
         {
-            mossamrDamage = mossamrDamageSecondary;
+            enemyDamage = enemyDamageSecondary;
         }
 
         if (n == 1)
         {
             // if int n is a 1 then we are using the primary stat
-            mossamrFrac = mossamr.effectiveness(volthesis.getPrimaryType());
-            volthDamage = volthesis.damageDone(mossamr, volthesis.getPrimaryType(), mossamrFrac);
+            enemyFrac = enemyPokemon.effectiveness(currentPokemon.getPrimaryType());
+            currentDamage = currentPokemon.damageDone(enemyPokemon, currentPokemon.getPrimaryType(), enemyFrac);
         }
         else
         {
             // if int n is a 2 then we are using the secondary stat
-            mossamrFrac = mossamr.effectiveness(volthesis.getSecondaryType());
-            volthDamage = volthesis.damageDone(mossamr, volthesis.getSecondaryType(), mossamrFrac);
+            enemyFrac = enemyPokemon.effectiveness(currentPokemon.getSecondaryType());
+            currentDamage = currentPokemon.damageDone(enemyPokemon, currentPokemon.getSecondaryType(), enemyFrac);
         }
 
         // whichever pokemon is faster attacks first
-        if (volthesis.getSpeed() > wargo.getSpeed())
+        if (currentPokemon.getSpeed() > enemyPokemon.getSpeed())
         {
-            mossamr.takeDamageEnemy(volthDamage, volthesis);
-            volthesis.takeDamage(mossamrDamage, mossamr);
+            enemyPokemon.takeDamageEnemy(currentDamage, currentPokemon);
+            currentPokemon.takeDamage(enemyDamage, enemyPokemon);
         }
         else
         {
-            volthesis.takeDamage(mossamrDamage, mossamr);
-            mossamr.takeDamageEnemy(volthDamage, volthesis);
-        }
-    }
-
-    // the same battle method but if the enemy pokemon is wargo
-    public void battleWargo(int n)
-    {
-        string stat;
-
-        double wargoDamage;
-        double volthDamage;
-        double wargoFrac;
-        double volthFrac;
-
-        volthFrac = volthesis.effectiveness(wargo.getPrimaryType());
-        double wargoDamagePrimary = wargo.damageDone(volthesis, wargo.getPrimaryType(), volthFrac);
-        volthFrac = volthesis.effectiveness(wargo.getSecondaryType());
-        double wargoDamageSecondary = wargo.damageDone(volthesis, wargo.getSecondaryType(), volthFrac);
-
-        if (wargoDamagePrimary > wargoDamageSecondary)
-        {
-            wargoDamage = wargoDamagePrimary;
-        } else
-        {
-            wargoDamage = wargoDamageSecondary;
-        }
-
-        if (n == 1)
-        {
-            // if int n is a 1 then we are using the primary stat
-            wargoFrac = wargo.effectiveness(volthesis.getPrimaryType());
-            volthDamage = volthesis.damageDone(wargo, volthesis.getPrimaryType(), wargoFrac);
-        }
-        else
-        {
-            // if int n is a 2 then we are using the secondary stat
-            wargoFrac = wargo.effectiveness(volthesis.getSecondaryType());
-            volthDamage = volthesis.damageDone(wargo, volthesis.getSecondaryType(), wargoFrac);
-        }
-
-        if (volthesis.getSpeed() > wargo.getSpeed())
-        {
-            wargo.takeDamageEnemy(volthDamage, volthesis);
-            volthesis.takeDamage(wargoDamage, wargo);
-        }
-        else
-        {
-            volthesis.takeDamage(wargoDamage, wargo);
-            wargo.takeDamageEnemy(volthDamage, volthesis);
+            currentPokemon.takeDamage(enemyDamage, enemyPokemon);
+            enemyPokemon.takeDamageEnemy(currentDamage, currentPokemon);
         }
     }
 
     // if the player wants to battle then goes to the move selection scene
     public void moveSelection()
     {
-        SceneManager.LoadScene("MoveSelection");
-    }
+        GameObject[] selectionButtons = GameObject.FindGameObjectsWithTag("Button");
 
-    // if the player wants to battle wargo then goes to the wargo scene
-    public void moveSelectionWargo()
-    {
-        SceneManager.LoadScene("MoveSelectionWargo");
+        foreach (GameObject button in selectionButtons)
+        {
+            button.SetActive(false);
+        }
+
+        GameObject battleButton = GameObject.Find("Canvas/BattleOptions/SecondaryButton");
+        battleButton.SetActive(true);
+        
+        battleButton = GameObject.Find("Canvas/BattleOptions/PrimaryButton");
+        battleButton.SetActive(true);
+        
+        battleButton = GameObject.Find("Canvas/BattleOptions/SwitchButton");
+        battleButton.SetActive(true);
     }
 
     // method to add mossamrs weakness'
@@ -235,7 +220,7 @@ public class BattleOptions : MonoBehaviour
     // method to add wargos weakness'
     public void addWeaknessWargo()
     {
-        weaknessWargo.Add("fairy"); //4x weakness
+        weaknessWargo.Add("fairy"); 
         weaknessWargo.Add("dragon");
     }
 
@@ -250,6 +235,12 @@ public class BattleOptions : MonoBehaviour
     // method to catch pokemon with the name of the pokemon given as the parameter
     public void catchPokemon(Text name) 
     {
+        PokemonStats[] pokemonParty = PokemonParty.getParty();
+        if (pokemonParty.Length > 6)
+        {
+            Debug.Log("Party is too full");
+        }
+
         string nameOfPokemon = name.text;
         if (nameOfPokemon.Equals("Wargo"))
         {
@@ -259,5 +250,39 @@ public class BattleOptions : MonoBehaviour
             PokemonParty.add(mossamr);
         }
         runAway();
+    }
+
+    public void showPokmeon(GameObject SwitchMenu)
+    {
+        SwitchMenu.SetActive(true);
+        fillInValues(PokemonParty.getParty(), SwitchMenu);
+    }
+
+
+    void fillInValues(PokemonStats[] pokemonArray, GameObject SwitchMenu)
+    {
+        string imageName;
+        string textName;
+        //string buttonName;
+        for (int i = 0; i < 6; i++)
+        {
+            imageName = "Image" + i;
+            textName = "Text" + i;
+            //buttonName = "Button" + i;
+            Image pokemonImage = SwitchMenu.transform.Find(imageName).GetComponent<Image>(); // gets the image name
+            Text pokemonName = SwitchMenu.transform.Find(textName).GetComponent<Text>(); // gets the text
+            GameObject[] buttons = GameObject.FindGameObjectsWithTag("SwitchButton");
+
+            if (pokemonArray[i] != null)
+            {
+                Debug.Log(buttons.Length);
+                PokemonStats pokemon = pokemonArray[i];
+                pokemonImage.sprite = Resources.Load<Sprite>(pokemonArray[i].getName()); // changes image
+                pokemonName.text = pokemon.getName(); // changes text
+            } else
+            {
+                buttons[i].SetActive(false);
+            }
+        }
     }
 }

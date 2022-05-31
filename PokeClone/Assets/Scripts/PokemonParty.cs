@@ -8,7 +8,9 @@ public class PokemonParty : MonoBehaviour
     public static PokemonParty Instance;
 
     // An array of 6 pokemon that will be the party
-    public static PokemonStats[] party = new PokemonStats[6]; 
+    public static PokemonStats[] party = new PokemonStats[6];
+
+    public static PokemonStats enemyPokemon;
 
     // This method will run when the object is first made. Which is made when the game starts
     private void Awake()
@@ -75,5 +77,15 @@ public class PokemonParty : MonoBehaviour
     public static PokemonStats[] getParty()
     {
         return party;
+    }
+
+    public static void assignPokemonInformation(PokemonStats enemyPokemonGiven)
+    {
+        enemyPokemon = enemyPokemonGiven;
+    }
+
+    public static PokemonStats getEnemyPokemon()
+    {
+        return enemyPokemon;
     }
 }
