@@ -252,37 +252,48 @@ public class BattleOptions : MonoBehaviour
         runAway();
     }
 
+    // activates the panel to see the switch menu and then fill in all of the pokemon information
     public void showPokmeon(GameObject SwitchMenu)
     {
         SwitchMenu.SetActive(true);
         fillInValues(PokemonParty.getParty(), SwitchMenu);
     }
 
-
+    // Very similiar method as the one in view party. and disables the button for pokemon that are not in your party
     void fillInValues(PokemonStats[] pokemonArray, GameObject SwitchMenu)
     {
         string imageName;
         string textName;
+        string buttonName;
         //string buttonName;
         for (int i = 0; i < 6; i++)
         {
             imageName = "Image" + i;
             textName = "Text" + i;
-            //buttonName = "Button" + i;
+            buttonName = "Button" + i;
             Image pokemonImage = SwitchMenu.transform.Find(imageName).GetComponent<Image>(); // gets the image name
             Text pokemonName = SwitchMenu.transform.Find(textName).GetComponent<Text>(); // gets the text
-            GameObject[] buttons = GameObject.FindGameObjectsWithTag("SwitchButton");
+            GameObject button = GameObject.Find("SwitchMenu/Panel/" + buttonName);
 
             if (pokemonArray[i] != null)
             {
-                Debug.Log(buttons.Length);
                 PokemonStats pokemon = pokemonArray[i];
                 pokemonImage.sprite = Resources.Load<Sprite>(pokemonArray[i].getName()); // changes image
                 pokemonName.text = pokemon.getName(); // changes text
             } else
             {
-                buttons[i].SetActive(false);
+                Debug.Log(i + "  " + button);
+                button.SetActive(false);
             }
         }
+    }
+
+    // switches the pokemon in the array so that the pokemon you selected is first.
+    public void switchPokemon(int n)
+    {
+        PokemonStats[] party = PokemonParty.getParty();
+        PokemonStats wantedPokemon = party[n]; // because the first slot will always be volthesis
+
+
     }
 }
