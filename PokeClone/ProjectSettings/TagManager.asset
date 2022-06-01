@@ -9,6 +9,7 @@ TagManager:
   - Button
   - NextButton
   - SwitchButton
+  - Panel
   layers:
   - Default
   - TransparentFX

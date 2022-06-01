@@ -15,6 +15,24 @@ public class PlayerMovement : MonoBehaviour
     // to see update the x and y positions
     Vector2 movement;
 
+    public void awake()
+    {
+        // when the player is again loaded in the scene, change the party order back to volthesis at the front 
+        // because that is how it works in a real pokemon game
+        PokemonStats[] party = PokemonParty.getParty();
+        PokemonStats pokemon = party[0];
+
+        for (int i = 0; i < 6; i++)
+        {
+            // there will only ever be 1 volthesis in a party
+            if (party[i].getName().Equals("Volthesis"))
+            {
+                party[0] = party[i];
+                party[i] = pokemon;
+            }
+        }
+    }
+
     // Update is called once per frame to see if the player input 'W' 'A' 'S' 'D' or the arrow keys
     void Update()
     {

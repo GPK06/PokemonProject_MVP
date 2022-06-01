@@ -25,8 +25,6 @@ public class BattleOptions : MonoBehaviour
 
     public void Awake()
     {
-        Debug.Log("In Awake Method");
-
         PokemonStats enemyPokemon = PokemonParty.getEnemyPokemon();
 
         GameObject Canvas = GameObject.FindWithTag("Canvas");
@@ -96,50 +94,55 @@ public class BattleOptions : MonoBehaviour
         PokemonStats[] party = PokemonParty.getParty();
         PokemonStats currentPokemon = party[0];
 
-        double enemyDamage;
-        double currentDamage;
-        double enemyFrac;
-        double currentFrac;
+        // as long as the pokemon is still alive
+        if (currentPokemon.getHealth() > 1)
+        {
 
-        // makes the effectiveness fractions for volthesis and gets the damage done for both different type attacks
-        currentFrac = currentPokemon.effectiveness(enemyPokemon.getPrimaryType());
-        double enemyDamagePrimary = enemyPokemon.damageDone(currentPokemon, enemyPokemon.getPrimaryType(), currentFrac);
-        currentFrac = currentPokemon.effectiveness(enemyPokemon.getSecondaryType());
-        double enemyDamageSecondary = enemyPokemon.damageDone(volthesis, enemyPokemon.getSecondaryType(), currentFrac); 
+            double enemyDamage;
+            double currentDamage;
+            double enemyFrac;
+            double currentFrac;
 
-        // the better dame is done to the players pokemon
-        if (enemyDamagePrimary > enemyDamageSecondary)
-        {
-            enemyDamage = enemyDamagePrimary;
-        }
-        else
-        {
-            enemyDamage = enemyDamageSecondary;
-        }
+            // makes the effectiveness fractions for volthesis and gets the damage done for both different type attacks
+            currentFrac = currentPokemon.effectiveness(enemyPokemon.getPrimaryType());
+            double enemyDamagePrimary = enemyPokemon.damageDone(currentPokemon, enemyPokemon.getPrimaryType(), currentFrac);
+            currentFrac = currentPokemon.effectiveness(enemyPokemon.getSecondaryType());
+            double enemyDamageSecondary = enemyPokemon.damageDone(volthesis, enemyPokemon.getSecondaryType(), currentFrac);
 
-        if (n == 1)
-        {
-            // if int n is a 1 then we are using the primary stat
-            enemyFrac = enemyPokemon.effectiveness(currentPokemon.getPrimaryType());
-            currentDamage = currentPokemon.damageDone(enemyPokemon, currentPokemon.getPrimaryType(), enemyFrac);
-        }
-        else
-        {
-            // if int n is a 2 then we are using the secondary stat
-            enemyFrac = enemyPokemon.effectiveness(currentPokemon.getSecondaryType());
-            currentDamage = currentPokemon.damageDone(enemyPokemon, currentPokemon.getSecondaryType(), enemyFrac);
-        }
+            // the better dame is done to the players pokemon
+            if (enemyDamagePrimary > enemyDamageSecondary)
+            {
+                enemyDamage = enemyDamagePrimary;
+            }
+            else
+            {
+                enemyDamage = enemyDamageSecondary;
+            }
 
-        // whichever pokemon is faster attacks first
-        if (currentPokemon.getSpeed() > enemyPokemon.getSpeed())
-        {
-            enemyPokemon.takeDamageEnemy(currentDamage, currentPokemon);
-            currentPokemon.takeDamage(enemyDamage, enemyPokemon);
-        }
-        else
-        {
-            currentPokemon.takeDamage(enemyDamage, enemyPokemon);
-            enemyPokemon.takeDamageEnemy(currentDamage, currentPokemon);
+            if (n == 1)
+            {
+                // if int n is a 1 then we are using the primary stat
+                enemyFrac = enemyPokemon.effectiveness(currentPokemon.getPrimaryType());
+                currentDamage = currentPokemon.damageDone(enemyPokemon, currentPokemon.getPrimaryType(), enemyFrac);
+            }
+            else
+            {
+                // if int n is a 2 then we are using the secondary stat
+                enemyFrac = enemyPokemon.effectiveness(currentPokemon.getSecondaryType());
+                currentDamage = currentPokemon.damageDone(enemyPokemon, currentPokemon.getSecondaryType(), enemyFrac);
+            }
+
+            // whichever pokemon is faster attacks first
+            if (currentPokemon.getSpeed() > enemyPokemon.getSpeed())
+            {
+                enemyPokemon.takeDamageEnemy(currentDamage, currentPokemon);
+                currentPokemon.takeDamage(enemyDamage, enemyPokemon);
+            }
+            else
+            {
+                currentPokemon.takeDamage(enemyDamage, enemyPokemon);
+                enemyPokemon.takeDamageEnemy(currentDamage, currentPokemon);
+            }
         }
     }
 
@@ -291,9 +294,33 @@ public class BattleOptions : MonoBehaviour
     // switches the pokemon in the array so that the pokemon you selected is first.
     public void switchPokemon(int n)
     {
+        //Debug.Log("I am being run");
         PokemonStats[] party = PokemonParty.getParty();
-        PokemonStats wantedPokemon = party[n]; // because the first slot will always be volthesis
+        PokemonStats volthesis = party[0]; // because the first slot will always be volthesis
+        party[0] = party[n]; // party of n is the pokemon wanted
+        party[n] = volthesis;
 
+        // change the visual pokemon
+        GameObject Canvas = GameObject.FindWithTag("Canvas");
 
+        Image pokemonImage = Canvas.transform.Find("CurrentPokemon").GetComponent<Image>(); // gets the image name
+        Text pokemonName = Canvas.transform.Find("CurrentName").GetComponent<Text>(); // gets the text
+        Text totalHealth = Canvas.transform.Find("TotalHealth").GetComponent<Text>(); // gets the text
+        Text currentHealth = Canvas.transform.Find("CurrentHealth").GetComponent<Text>(); // gets the text
+        
+        Image primaryImage = GameObject.Find("Canvas/BattleOptions/PrimaryButton").GetComponent<Image>(); // gets button image
+        Image secondaryImage = GameObject.Find("Canvas/BattleOptions/SecondaryButton").GetComponent<Image>(); // gets button image
+
+        // updates all of the values
+        pokemonImage.sprite = Resources.Load<Sprite>(party[0].getName() + "BackSprite"); // changes image
+        pokemonName.text = party[0].getName(); // changes text
+        currentHealth.text = party[0].getHealth() + "";
+        totalHealth.text = party[0].getHealth() + "";
+
+        primaryImage.sprite = Resources.Load<Sprite>(party[0].getPrimaryType() + "Button");
+        secondaryImage.sprite = Resources.Load<Sprite>(party[0].getSecondaryType() + "Button");
+
+        GameObject Panel = GameObject.FindWithTag("Panel");
+        Panel.SetActive(false);
     }
 }

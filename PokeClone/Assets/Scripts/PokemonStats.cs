@@ -190,6 +190,7 @@ public class PokemonStats
         }
     }
 
+    // the enemy takes the damage. The only reason it is a different method is to update the enemies health
     public void takeDamageEnemy(double damage, PokemonStats pokemon)
     {
         currentHealth -= damage;
@@ -212,15 +213,31 @@ public class PokemonStats
     // the pokemon dies so the player is sent back to route 1
     public void die()
     {
-        GameObject[] buttons = GameObject.FindGameObjectsWithTag("Button");
+        PokemonStats[] party = PokemonParty.getParty();
+        bool allPokemonDead = true;
 
-        foreach (GameObject button in buttons)
+        foreach (PokemonStats pokemon in party)
         {
-            button.SetActive(false);
+            if (pokemon.getHealth() > 1)
+            {
+                allPokemonDead = false;
+            }
         }
 
-        GameObject nextButton = GameObject.Find("Canvas/BattleOptions/NextButton");
-        nextButton.SetActive(true);
+        // if all pokemon are dead
+        if (allPokemonDead)
+        {
+
+            GameObject[] buttons = GameObject.FindGameObjectsWithTag("Button");
+
+            foreach (GameObject button in buttons)
+            {
+                button.SetActive(false);
+            }
+
+            GameObject nextButton = GameObject.Find("Canvas/BattleOptions/NextButton");
+            nextButton.SetActive(true);
+        }
     }
 
     // returns the health
