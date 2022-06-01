@@ -206,8 +206,23 @@ public class PokemonStats
         if (currentHealth <= 0 && pokemon.getHealth() != 0)
         {
             healthText.text = 0 + "";
-            die();
+            dieEnemy();
         }
+    }
+
+    // die method for the enmy so the battle ends when the enemies pokemon is dead
+    public void dieEnemy()
+    {
+        // will have to have an array if trainer has multiple pokemon
+        GameObject[] buttons = GameObject.FindGameObjectsWithTag("Button");
+
+        foreach (GameObject button in buttons)
+        {
+            button.SetActive(false);
+        }
+
+        GameObject nextButton = GameObject.Find("Canvas/BattleOptions/NextButton");
+        nextButton.SetActive(true);
     }
 
     // the pokemon dies so the player is sent back to route 1

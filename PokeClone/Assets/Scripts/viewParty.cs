@@ -7,15 +7,17 @@ public class viewParty : MonoBehaviour
 {
     // variable to see whether I am viewing the party or not
     public static bool viewingParty = false;
+    public static bool viewingControls = true;
 
     // GameObject so that I have access to the pause menu
     public GameObject pauseMenuUI;
+    public GameObject controlUI;
 
     // checking every frame (or another something similiar) to see if the player pressed the letter p
     // Then runs method accordingly
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.P) && !viewingControls)
         {
             if (viewingParty)
             {
@@ -23,6 +25,14 @@ public class viewParty : MonoBehaviour
             } else
             {
                 Pause();
+            }
+        } else if (Input.GetKeyDown(KeyCode.C) && !viewingParty) {
+            if (viewingControls)
+            {
+                resumeControls();
+            } else
+            {
+                pauseControls();
             }
         }
     }
@@ -40,6 +50,20 @@ public class viewParty : MonoBehaviour
         fillInValues(PokemonParty.getParty());
         pauseMenuUI.SetActive(true);
         viewingParty = true;
+    }
+
+    // Resumes the game, so disables the panel
+    void resumeControls()
+    {
+        controlUI.SetActive(false);
+        viewingControls = false;
+    }
+
+    // paused the game, so activates the panel and shows controls
+    void pauseControls()
+    {
+        controlUI.SetActive(true);
+        viewingControls = true;
     }
 
     // Traverses through the pokemon Party and if there is a value inside then the image is changed and the same with the name
