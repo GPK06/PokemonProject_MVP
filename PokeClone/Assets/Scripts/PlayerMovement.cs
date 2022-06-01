@@ -53,6 +53,11 @@ public class PlayerMovement : MonoBehaviour
     // if the player triggered, a trigger, then a roll is made to see if to encounter 
     private void OnTriggerStay2D(Collider2D collision)
     {
+        if (collision.name.Equals("NextRoute"))
+        {
+            SceneManager.LoadScene("Route 2");
+        }
+
         int num = Random.Range(0, 101);
         
         if (num == 1)
@@ -105,7 +110,6 @@ public class PlayerMovement : MonoBehaviour
             }
 
             SceneManager.LoadScene("BATTLE");
-
         }
 
     }
