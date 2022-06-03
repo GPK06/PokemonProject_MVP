@@ -50,10 +50,10 @@ public class PlayerMovement : MonoBehaviour
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
     }
 
-    // if the player triggered, a trigger, then a roll is made to see if to encounter 
+    // if the player triggered, a trigger, then a roll is made to see if to encounter, if it is the route collision then go to the route 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.name.Equals("NextRoute"))
+        if (collision.name.Equals("Route2EncounterBox"))
         {
             SceneManager.LoadScene("Route 2");
         }
