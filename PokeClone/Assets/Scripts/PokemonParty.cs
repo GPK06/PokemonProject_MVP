@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PokemonParty : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class PokemonParty : MonoBehaviour
     public static PokemonStats[] party = new PokemonStats[6];
 
     public static PokemonStats enemyPokemon;
+
+    public static string previousRoute;
 
     // This method will run when the object is first made. Which is made when the game starts
     private void Awake()
@@ -79,13 +82,27 @@ public class PokemonParty : MonoBehaviour
         return party;
     }
 
+    // assigns the pokemon info
     public static void assignPokemonInformation(PokemonStats enemyPokemonGiven)
     {
         enemyPokemon = enemyPokemonGiven;
     }
 
+    // returns the pokemon info
     public static PokemonStats getEnemyPokemon()
     {
         return enemyPokemon;
+    }
+
+    // asigns the route info
+    public static void assignPreviousRoute()
+    {
+        previousRoute = SceneManager.GetActiveScene().name;
+    }
+
+    // gets the route info
+    public static string getPrevRoute()
+    {
+        return previousRoute;
     }
 }

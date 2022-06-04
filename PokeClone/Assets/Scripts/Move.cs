@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// move class that holds all of the information that has to do with a move
 public class Move
 {
     // all the different information for a move

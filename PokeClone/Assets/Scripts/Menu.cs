@@ -1,17 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.SceneManagement; // imports this to change scenes
 
+// menu class controls the features in the main menu scene such as viewing the controls and playing the game
+// Menu class based off of: https://www.youtube.com/watch?v=JivuXdrIHK0
 public class Menu : MonoBehaviour
 {
-    public static bool viewingControls = false;
+    public static bool viewingControls = true;
 
-    // GameObject so that I have access to the pause menu
+    // GameObject so that I have access to the control screen
     public GameObject controlUI;
-    public GameObject startMenu;
 
-    // Resumes the game, so disables the panel
+    // checks each from if the letter c is pressed, and then accordingly shows them or disbales it.
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.C))
@@ -26,17 +27,18 @@ public class Menu : MonoBehaviour
             }
         }
     }
-
+    
+    // shows the control panel
     void showControls()
     {
-        controlUI.SetActive(false);
+        controlUI.SetActive(true);
         viewingControls = false;
     }
 
-    // paused the game, so activates the panel and shows controls
+    // stops showing the controls
     void stopControls()
     {
-        controlUI.SetActive(true);
+        controlUI.SetActive(false);
         viewingControls = true;
     }
 

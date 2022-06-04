@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement; // to change scenes
+using UnityEngine.UI; // to change the ui elements in unity
 
+// battle options class that deals with all of the options that can be done during a battle
 public class BattleOptions : MonoBehaviour
 {
+    // make not of previous route
+    string previousRoute;
+
     // Make new pokemons
     PokemonStats mossamr;
     PokemonStats volthesis;
@@ -23,6 +27,7 @@ public class BattleOptions : MonoBehaviour
     HashSet<string> weaknessWargo = new HashSet<string>();
     HashSet<string> resistanceWargo = new HashSet<string>();
 
+    // when the script is first run fill in all of the information to do with the pokemon
     public void Awake()
     {
         PokemonStats enemyPokemon = PokemonParty.getEnemyPokemon();
@@ -37,7 +42,8 @@ public class BattleOptions : MonoBehaviour
         pokemonImage.sprite = Resources.Load<Sprite>(enemyPokemon.getName()); // changes image
         pokemonName.text = enemyPokemon.getName(); // changes text
         currentHealth.text = enemyPokemon.getHealth() + "";
-        totalHealth.text = enemyPokemon.getHealth() + "";
+        totalHealth.text = enemyPokemon.maxHealth() + "";
+        previousRoute = PokemonParty.getPrevRoute();
     }
 
     // copnctructor to inuitalize all of the fields
@@ -62,25 +68,10 @@ public class BattleOptions : MonoBehaviour
         wargo = new PokemonStats("Wargo", "water", "dragon", 87, 87, 87, 87, 87, 87, weaknessWargo, resistanceWargo, null);
     }
 
-    // changes to route 1 if the player ran away
+    // changes to the previous route if the player ran away
     public void runAway()
     {
-        Debug.Log("button was pressed");
-        SceneManager.LoadScene("Route 1");
-    }
-
-    // catches the pokemon by adding it to the pokemon party array
-    public void catchPokemon()
-    {
-        // gets the name to see which pokemon is being caught
-        Text name = transform.Find("EnemyName").GetComponent<Text>();
-        if (name.text == "Mossamr")
-        {
-            PokemonParty.add(mossamr);
-        } else
-        {
-            PokemonParty.add(wargo);
-        }
+        SceneManager.LoadScene(previousRoute);
     }
 
     // goes into battle and depending on the number sent then that is the move done by the pokemon
@@ -146,7 +137,7 @@ public class BattleOptions : MonoBehaviour
         }
     }
 
-    // if the player wants to battle then goes to the move selection scene
+    // if the player wants to battle then change the butons
     public void moveSelection()
     {
         GameObject[] selectionButtons = GameObject.FindGameObjectsWithTag("Button");
@@ -156,6 +147,7 @@ public class BattleOptions : MonoBehaviour
             button.SetActive(false);
         }
 
+        // activate battling buttons
         GameObject battleButton = GameObject.Find("Canvas/BattleOptions/SecondaryButton");
         battleButton.SetActive(true);
         
@@ -238,12 +230,13 @@ public class BattleOptions : MonoBehaviour
     // method to catch pokemon with the name of the pokemon given as the parameter
     public void catchPokemon(Text name) 
     {
+        // if the party is too full then can't add a pokemon
         PokemonStats[] pokemonParty = PokemonParty.getParty();
         if (pokemonParty.Length > 6)
         {
             Debug.Log("Party is too full");
         }
-
+        // adds the pokemon to the party
         string nameOfPokemon = name.text;
         if (nameOfPokemon.Equals("Wargo"))
         {
@@ -252,7 +245,7 @@ public class BattleOptions : MonoBehaviour
         {
             PokemonParty.add(mossamr);
         }
-        runAway();
+        runAway(); // goes back to the route because youa are done catching
     }
 
     // activates the panel to see the switch menu and then fill in all of the pokemon information
@@ -278,14 +271,14 @@ public class BattleOptions : MonoBehaviour
             Text pokemonName = SwitchMenu.transform.Find(textName).GetComponent<Text>(); // gets the text
             GameObject button = GameObject.Find("SwitchMenu/Panel/" + buttonName);
 
-            if (pokemonArray[i] != null)
+            // checks if the pokemon is not null and now dead, then allows the button to be pressed.
+            if (pokemonArray[i] != null && pokemonArray[i].getHealth() > 1)
             {
                 PokemonStats pokemon = pokemonArray[i];
                 pokemonImage.sprite = Resources.Load<Sprite>(pokemonArray[i].getName()); // changes image
-                pokemonName.text = pokemon.getName(); // changes text
+                pokemonName.text = pokemon.getName() + "          " + pokemon.getHealth() + "/" + pokemon.maxHealth(); // changes text
             } else
             {
-                Debug.Log(i + "  " + button);
                 button.SetActive(false);
             }
         }
@@ -315,7 +308,7 @@ public class BattleOptions : MonoBehaviour
         pokemonImage.sprite = Resources.Load<Sprite>(party[0].getName() + "BackSprite"); // changes image
         pokemonName.text = party[0].getName(); // changes text
         currentHealth.text = party[0].getHealth() + "";
-        totalHealth.text = party[0].getHealth() + "";
+        totalHealth.text = party[0].maxHealth() + "";
 
         primaryImage.sprite = Resources.Load<Sprite>(party[0].getPrimaryType() + "Button");
         secondaryImage.sprite = Resources.Load<Sprite>(party[0].getSecondaryType() + "Button");

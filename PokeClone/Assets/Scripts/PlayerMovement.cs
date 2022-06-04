@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+// PlayerMovement class to control how the character moves and where the character will go (i.e. encounters, next route, etc.)
+// Parts of the code was made by following this youtube video: https://www.youtube.com/watch?v=whzomFgjT50
 public class PlayerMovement : MonoBehaviour
 {
     // makes a float for the speed of the character
@@ -15,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     // to see update the x and y positions
     Vector2 movement;
 
+    // method to change volthesis to front. has to be called awake so it runs when the script is first run again.
     public void awake()
     {
         // when the player is again loaded in the scene, change the party order back to volthesis at the front 
@@ -53,11 +56,16 @@ public class PlayerMovement : MonoBehaviour
     // if the player triggered, a trigger, then a roll is made to see if to encounter, if it is the route collision then go to the route 
     private void OnTriggerStay2D(Collider2D collision)
     {
+        // assigns this scene info
+        PokemonParty.assignPreviousRoute();
+
+        // goes to route 2
         if (collision.name.Equals("Route2EncounterBox"))
         {
             SceneManager.LoadScene("Route 2");
         }
 
+        // if it rolls a 1 in a 100, then you encounter, while you are in the grass
         int num = Random.Range(0, 101);
         
         if (num == 1)
@@ -65,8 +73,7 @@ public class PlayerMovement : MonoBehaviour
             // different encounter boxes for each pokemon (like some routes in pokemon)
             if (collision.name.Equals("EncounterBoxWargo"))
             {
-                Debug.Log("Wargo");
-
+                // make info about the enemy pokemon and send to battle method
                 HashSet<string> weaknessWargo = new HashSet<string>();
                 HashSet<string> resistanceWargo = new HashSet<string>();
 
@@ -81,10 +88,9 @@ public class PlayerMovement : MonoBehaviour
 
                 PokemonParty.assignPokemonInformation(wargo);
             }
-            else
-            {
-                Debug.Log("Mossamr");
-                
+            else // if not wargo then has to be mossamr
+            {                
+                // sends info about enemy pokemon to battle nethod.
                 HashSet<string> weaknessMossamr = new HashSet<string>();
                 HashSet<string> resistanceMossamr = new HashSet<string>();
                 HashSet<string> immunityMossamr = new HashSet<string>();

@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement; // imported to change scenes back to the route
+using UnityEngine.UI; // imported to chagne the ui component in unity
 
 
 public class PokemonStats
@@ -46,6 +46,7 @@ public class PokemonStats
     // constructor to assign all of the stats to the pokemon
     public PokemonStats(string name, string primary, string secondary, int health, int speed, int attack, int spAttack, int defense, int spDefense, HashSet<string> weaknessP, HashSet<string> resistanceP, HashSet<string> immunityP)
     {
+        // assign all information
         this.name = name;
         
         primaryType = primary;
@@ -81,9 +82,7 @@ public class PokemonStats
         //Damage = ((((2 * Level / 5 + 2) * AttackStat * AttackPower / DefenseStat) / 50) + 2) * STAB * Weakness/Resistance * RandomNumber / 100
         //Level will just be 50 before a level up system is added.
 
-        //double effective = effectiveness(typeBeingUsed);
-
-        // assigns the move and the attack power iun the calculations depending on the type being used
+        // assigns the move and the attack power in the calculations depending on the type being used
         int attackPower;
         Move type;
         if (primaryMove.getType().Equals(typeBeingUsed))
@@ -103,7 +102,7 @@ public class PokemonStats
         // gets the base stats of the attack being used and gets the corresponding defense stat of the opposing pokemon
         if (type.getType().Equals("SpecialAttack"))
         {
-            attackStat = getSpecialAttack(); // will have to use the move.getAttackStatBeingUsed
+            attackStat = getSpecialAttack(); 
             defenseStat = pokemon.getSpecialDefense();
         }
         else
@@ -199,7 +198,7 @@ public class PokemonStats
 
         // changes the value of the text diplayed on the screen
         Text healthText;
-        healthText = Canvas.transform.Find("EnemyCurrentHealth").GetComponent<Text>();
+        healthText = Canvas.transform.Find("EnemyCurrentHealth").GetComponent<Text>(); // only way to get text that is why has to be own method
         healthText.text = currentHealth + "";
 
         // if the pokemon dies then play the death method
@@ -230,12 +229,16 @@ public class PokemonStats
     {
         PokemonStats[] party = PokemonParty.getParty();
         bool allPokemonDead = true;
-
+        
+        // checks if all of the pokemon in the party are dead
         foreach (PokemonStats pokemon in party)
         {
-            if (pokemon.getHealth() > 1)
+            if (pokemon != null)
             {
-                allPokemonDead = false;
+                if (pokemon.getHealth() > 1)
+                {
+                    allPokemonDead = false;
+                }
             }
         }
 
@@ -259,6 +262,12 @@ public class PokemonStats
     public double getHealth()
     {
         return currentHealth;
+    }
+
+    //returns the max health
+    public double maxHealth()
+    {
+        return MaxHealth;
     }
 
     // returns the speed
