@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     Vector2 movement;
 
     // method to change volthesis to front. has to be called awake so it runs when the script is first run again.
+    // also heals all pokemon if you whited out
     public void awake()
     {
         // when the player is again loaded in the scene, change the party order back to volthesis at the front 
@@ -27,6 +28,8 @@ public class PlayerMovement : MonoBehaviour
 
         for (int i = 0; i < 6; i++)
         {
+            party[i].regen();
+
             // there will only ever be 1 volthesis in a party
             if (party[i].getName().Equals("Volthesis"))
             {

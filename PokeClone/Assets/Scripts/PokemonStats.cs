@@ -270,6 +270,11 @@ public class PokemonStats
         return MaxHealth;
     }
 
+    public void regen()
+    {
+        currentHealth = MaxHealth;
+    }
+
     // returns the speed
     public int getSpeed()
     {

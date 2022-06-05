@@ -272,12 +272,19 @@ public class BattleOptions : MonoBehaviour
             GameObject button = GameObject.Find("SwitchMenu/Panel/" + buttonName);
 
             // checks if the pokemon is not null and now dead, then allows the button to be pressed.
-            if (pokemonArray[i] != null && pokemonArray[i].getHealth() > 1)
+            if (pokemonArray[i] != null)
             {
                 PokemonStats pokemon = pokemonArray[i];
                 pokemonImage.sprite = Resources.Load<Sprite>(pokemonArray[i].getName()); // changes image
-                pokemonName.text = pokemon.getName() + "          " + pokemon.getHealth() + "/" + pokemon.maxHealth(); // changes text
-            } else
+                pokemonName.text = pokemon.getName() + " " + pokemon.getHealth() + "/" + pokemon.maxHealth(); // changes text
+                
+                // deactivate button if the pokemon is dead
+                if (pokemonArray[i].getHealth() < 1)
+                {
+                    Debug.Log("button deactivated");
+                    button.SetActive(false);
+                }
+            } else 
             {
                 button.SetActive(false);
             }

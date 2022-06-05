@@ -90,7 +90,7 @@ public class viewParty : MonoBehaviour
             {
                 PokemonStats pokemon = pokemonArray[i];
                 pokemonImage.sprite = Resources.Load<Sprite>(pokemonArray[i].getName()); // changes image
-                pokemonName.text = pokemon.getName(); // changes text
+                pokemonName.text = pokemon.getName() + " " + pokemon.getHealth() + "/" + pokemon.maxHealth(); // changes text
             }
         }
     }
