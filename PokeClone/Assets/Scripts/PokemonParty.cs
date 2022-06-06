@@ -15,6 +15,30 @@ public class PokemonParty : MonoBehaviour
 
     public static string previousRoute;
 
+    public static void partyRestore()
+    {
+        // save the pokemon in the first slot
+        PokemonStats[] party = PokemonParty.getParty();
+        PokemonStats pokemon = party[0];
+
+        for (int i = 0; i < 6; i++)
+        {
+            if (party[i] != null)
+            {
+                // heal all the pokemon
+                party[i].regen();
+
+                // there will only ever be 1 volthesis in a party
+                if (party[i].getName().Equals("Volthesis"))
+                {
+                    // switch with volthesis so that volthesis is in the front like it works in a real pokemon game.
+                    party[0] = party[i];
+                    party[i] = pokemon;
+                }
+            }
+        }
+    }
+
     // This method will run when the object is first made. Which is made when the game starts
     private void Awake()
     {
@@ -103,6 +127,7 @@ public class PokemonParty : MonoBehaviour
     // gets the route info
     public static string getPrevRoute()
     {
+        Debug.Log("Got previous route");
         return previousRoute;
     }
 }

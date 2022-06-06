@@ -11,33 +11,12 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeed = 5f;
 
     // makes a rigid body object so the players position can be changed
-    public Rigidbody2D rb;
+    public Rigidbody2D rbPlayer;
+    public Rigidbody2D rbCamera;
     public Animator animator; // animator to control the player animation
 
     // to see update the x and y positions
     Vector2 movement;
-
-    // method to change volthesis to front. has to be called awake so it runs when the script is first run again.
-    // also heals all pokemon if you whited out
-    public void awake()
-    {
-        // when the player is again loaded in the scene, change the party order back to volthesis at the front 
-        // because that is how it works in a real pokemon game
-        PokemonStats[] party = PokemonParty.getParty();
-        PokemonStats pokemon = party[0];
-
-        for (int i = 0; i < 6; i++)
-        {
-            party[i].regen();
-
-            // there will only ever be 1 volthesis in a party
-            if (party[i].getName().Equals("Volthesis"))
-            {
-                party[0] = party[i];
-                party[i] = pokemon;
-            }
-        }
-    }
 
     // Update is called once per frame to see if the player input 'W' 'A' 'S' 'D' or the arrow keys
     void Update()
@@ -50,10 +29,12 @@ public class PlayerMovement : MonoBehaviour
         animator.SetFloat("speed", movement.sqrMagnitude);
     }
 
+
     // updates the position at a fixed frame rate regardless of specs of the PC
     void FixedUpdate()
     {
-        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+        rbPlayer.MovePosition(rbPlayer.position + movement * moveSpeed * Time.fixedDeltaTime);
+        rbCamera.MovePosition(rbCamera.position + movement * moveSpeed * Time.fixedDeltaTime);
     }
 
     // if the player triggered, a trigger, then a roll is made to see if to encounter, if it is the route collision then go to the route 
@@ -90,8 +71,9 @@ public class PlayerMovement : MonoBehaviour
                 PokemonStats wargo = new PokemonStats("Wargo", "water", "dragon", 87, 87, 87, 87, 87, 87, weaknessWargo, resistanceWargo, null);
 
                 PokemonParty.assignPokemonInformation(wargo);
+                SceneManager.LoadScene("BATTLE"); // cannot call at the bottom other wise the heal box triggers an encounter
             }
-            else // if not wargo then has to be mossamr
+            else if (collision.name.Equals("EncounterBox")) // if not wargo then has to be mossamr
             {                
                 // sends info about enemy pokemon to battle nethod.
                 HashSet<string> weaknessMossamr = new HashSet<string>();
@@ -116,9 +98,11 @@ public class PlayerMovement : MonoBehaviour
                 PokemonStats mossamr = new PokemonStats("Mossamr", "grass", "steel", 87, 87, 87, 87, 87, 87, weaknessMossamr, resistanceMossamr, immunityMossamr);
 
                 PokemonParty.assignPokemonInformation(mossamr);
+                SceneManager.LoadScene("BATTLE");
+            } else if (collision.name.Equals("heal"))
+            {
+                PokemonParty.partyRestore();
             }
-
-            SceneManager.LoadScene("BATTLE");
         }
 
     }

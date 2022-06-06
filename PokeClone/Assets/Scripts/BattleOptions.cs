@@ -323,4 +323,10 @@ public class BattleOptions : MonoBehaviour
         GameObject Panel = GameObject.FindWithTag("Panel");
         Panel.SetActive(false);
     }
+
+    public void close()
+    {
+        GameObject panel = GameObject.FindWithTag("Panel");
+        panel.SetActive(false);
+    }
 }
