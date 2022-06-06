@@ -24,6 +24,8 @@ public class PlayerMovement : MonoBehaviour
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
 
+        Debug.Log(movement.y);
+
         animator.SetFloat("Horizontal", movement.x);
         animator.SetFloat("Vertical", movement.y);
         animator.SetFloat("speed", movement.sqrMagnitude);
@@ -35,6 +37,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rbPlayer.MovePosition(rbPlayer.position + movement * moveSpeed * Time.fixedDeltaTime);
         rbCamera.MovePosition(rbCamera.position + movement * moveSpeed * Time.fixedDeltaTime);
+
     }
 
     // if the player triggered, a trigger, then a roll is made to see if to encounter, if it is the route collision then go to the route 
