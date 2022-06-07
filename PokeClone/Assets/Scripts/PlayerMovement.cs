@@ -24,8 +24,6 @@ public class PlayerMovement : MonoBehaviour
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
 
-        Debug.Log(movement.y);
-
         animator.SetFloat("Horizontal", movement.x);
         animator.SetFloat("Vertical", movement.y);
         animator.SetFloat("speed", movement.sqrMagnitude);
@@ -37,7 +35,16 @@ public class PlayerMovement : MonoBehaviour
     {
         rbPlayer.MovePosition(rbPlayer.position + movement * moveSpeed * Time.fixedDeltaTime);
         rbCamera.MovePosition(rbCamera.position + movement * moveSpeed * Time.fixedDeltaTime);
+    }
 
+    // if the player exits this trigger than the pokemon is healed.
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.name.Equals("heal"))
+        {
+            Debug.Log("run in exit method");
+            PokemonParty.partyRestore();
+        }
     }
 
     // if the player triggered, a trigger, then a roll is made to see if to encounter, if it is the route collision then go to the route 
@@ -50,6 +57,12 @@ public class PlayerMovement : MonoBehaviour
         if (collision.name.Equals("Route2EncounterBox"))
         {
             SceneManager.LoadScene("Route 2");
+        } if (collision.name.Equals("Route 1"))
+        {
+            SceneManager.LoadScene("Route 1");
+        } if (collision.name.Equals("Route 3"))
+        {
+            SceneManager.LoadScene("Route 3");
         }
 
         // if it rolls a 1 in a 100, then you encounter, while you are in the grass
@@ -104,6 +117,7 @@ public class PlayerMovement : MonoBehaviour
                 SceneManager.LoadScene("BATTLE");
             } else if (collision.name.Equals("heal"))
             {
+                Debug.Log("run");
                 PokemonParty.partyRestore();
             }
         }

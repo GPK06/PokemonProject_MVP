@@ -182,7 +182,7 @@ public class PokemonStats
         healthText.text = currentHealth + "";
 
         // if the pokemon dies then play the death method
-        if (currentHealth <= 0 && pokemon.getHealth() != 0)
+        if (currentHealth < 0 && pokemon.getHealth() != 0)
         {
             healthText.text = 0 + "";
             die();
@@ -202,7 +202,7 @@ public class PokemonStats
         healthText.text = currentHealth + "";
 
         // if the pokemon dies then play the death method
-        if (currentHealth <= 0 && pokemon.getHealth() != 0)
+        if (currentHealth < 0 && pokemon.getHealth() != 0)
         {
             healthText.text = 0 + "";
             dieEnemy();

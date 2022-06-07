@@ -1140,8 +1140,8 @@ Transform:
   m_Father: {fileID: 937748068}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!60 &423212697
-PolygonCollider2D:
+--- !u!61 &423212697
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1153,7 +1153,7 @@ PolygonCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.04504794, y: 0.10537624}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1163,14 +1163,9 @@ PolygonCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: -0.06266118, y: 1.0366855}
-      - {x: -0.9860596, y: 1.0593257}
-      - {x: -0.9949263, y: -1.0229411}
-      - {x: 0.99515605, y: -0.9945753}
-      - {x: 1.0010118, y: 1.0599663}
-      - {x: 0.4624641, y: 1.0369861}
+  serializedVersion: 2
+  m_Size: {x: 1.9353186, y: 2.1853461}
+  m_EdgeRadius: 0
 --- !u!483693784 &423212698
 TilemapRenderer:
   m_ObjectHideFlags: 0
@@ -3137,8 +3132,8 @@ Transform:
   m_Father: {fileID: 937748068}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!60 &1256160484
-PolygonCollider2D:
+--- !u!68 &1256160484
+EdgeCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -3151,36 +3146,22 @@ PolygonCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_EdgeRadius: 0
   m_Points:
-    m_Paths:
-    - - {x: -3.631422, y: -2.0060694}
-      - {x: -3.6537776, y: -1.0470612}
-      - {x: -3.7026086, y: -1.0525347}
-      - {x: -3.706747, y: 0.0054615736}
-      - {x: -3.6780179, y: -0.01046443}
-      - {x: -2.5475206, y: -0.005862251}
-      - {x: -2.5170956, y: 0.80798554}
-      - {x: -2.5620008, y: 1.9849924}
-      - {x: -3.5622234, y: 1.9761522}
-      - {x: -3.5779269, y: 2.9932332}
-      - {x: -4.560369, y: 3.0158029}
-      - {x: -4.6073713, y: 4.1599417}
-      - {x: -5.6264772, y: 4.1606593}
-      - {x: -5.631205, y: -3.836741}
-      - {x: -5.6051908, y: -3.8624637}
-      - {x: -1.7592494, y: -3.8631911}
-      - {x: 0.3367573, y: -3.8631914}
-      - {x: -3.655442, y: -3.8500643}
-      - {x: -3.657763, y: -2.018873}
+  - {x: -5.653752, y: -3.8928707}
+  - {x: -3.6870883, y: -3.8858197}
+  - {x: -3.65533, y: 0.014054179}
+  - {x: -2.6281497, y: 0.016850114}
+  - {x: -2.6746192, y: 1.8065408}
+  - {x: -3.7151535, y: 1.815295}
+  - {x: -3.6879854, y: 2.925754}
+  - {x: -4.6872463, y: 2.9281833}
+  - {x: -4.658472, y: 4.0962434}
+  - {x: -5.6998367, y: 4.0997376}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
 --- !u!483693784 &1256160485
 TilemapRenderer:
   m_ObjectHideFlags: 0
@@ -4121,8 +4102,8 @@ Transform:
   m_Father: {fileID: 937748068}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!60 &1540546049
-PolygonCollider2D:
+--- !u!68 &1540546049
+EdgeCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -4135,30 +4116,25 @@ PolygonCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_EdgeRadius: 0
   m_Points:
-    m_Paths:
-    - - {x: -2.7284865, y: -0.15362936}
-      - {x: -2.6851678, y: 0.06452215}
-      - {x: -3.7051625, y: 0.060281962}
-      - {x: -3.6367505, y: -3.8753057}
-      - {x: 0.2896821, y: -3.895687}
-      - {x: 0.34404847, y: -3.1365216}
-      - {x: 0.35885316, y: -3.161702}
-      - {x: 0.3241483, y: -3.0858436}
-      - {x: 0.28907543, y: -2.094138}
-      - {x: -0.6903147, y: -2.0217562}
-      - {x: -0.7022254, y: -1.1731637}
-      - {x: -1.6828363, y: -1.1520294}
-      - {x: -1.6648169, y: -0.1808691}
+  - {x: -3.7440464, y: 0.8565376}
+  - {x: -2.7025273, y: 0.86717194}
+  - {x: -2.734797, y: -0.21127048}
+  - {x: -1.7191975, y: -0.23039365}
+  - {x: -1.7189367, y: -1.1859266}
+  - {x: -0.66512084, y: -1.1671566}
+  - {x: -0.7035668, y: -2.2482727}
+  - {x: 0.2341287, y: -2.2700832}
+  - {x: 0.2443636, y: -3.876102}
+  - {x: 0.25157288, y: -3.876102}
+  - {x: -0.35739666, y: -3.8995953}
+  - {x: -3.7441156, y: -3.8939087}
+  - {x: -3.7959843, y: 0.91797924}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
 --- !u!483693784 &1540546050
 TilemapRenderer:
   m_ObjectHideFlags: 0
