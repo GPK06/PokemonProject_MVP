@@ -63,6 +63,10 @@ public class PlayerMovement : MonoBehaviour
         } if (collision.name.Equals("Route 3"))
         {
             SceneManager.LoadScene("Route 3");
+        } if (collision.name.Equals("TrainerEncounter"))
+        {
+            GameObject trainerDialogue = GameObject.Find("Canvas/TrainerText");
+            trainerDialogue.SetActive(true);
         }
 
         // if it rolls a 1 in a 100, then you encounter, while you are in the grass
