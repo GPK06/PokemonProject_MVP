@@ -212,16 +212,40 @@ public class PokemonStats
     // die method for the enmy so the battle ends when the enemies pokemon is dead
     public void dieEnemy()
     {
-        // will have to have an array if trainer has multiple pokemon
-        GameObject[] buttons = GameObject.FindGameObjectsWithTag("Button");
+        PokemonStats[] party = PokemonParty.getEnemyPokemon();
+        bool allPokemonDead = true;
 
-        foreach (GameObject button in buttons)
+        PokemonStats current = party[0];
+
+        // checks if all of the pokemon in the party are dead
+        for (int i = 1; i < 6; i++)
         {
-            button.SetActive(false);
+            if (party[i] != null)
+            {
+                if (party[i].getHealth() > 1)
+                {
+                    allPokemonDead = false;
+                    party[0] = party[i];
+                    party[i] = current;
+                    BattleOptions.updateEnemyPokemon();
+                }
+            }
         }
 
-        GameObject nextButton = GameObject.Find("Canvas/BattleOptions/NextButton");
-        nextButton.SetActive(true);
+        if (allPokemonDead)
+        {
+
+            // will have to have an array if trainer has multiple pokemon
+            GameObject[] buttons = GameObject.FindGameObjectsWithTag("Button");
+
+            foreach (GameObject button in buttons)
+            {
+                button.SetActive(false);
+            }
+
+            GameObject nextButton = GameObject.Find("Canvas/BattleOptions/NextButton");
+            nextButton.SetActive(true);
+        }
     }
 
     // the pokemon dies so the player is sent back to route 1
@@ -270,6 +294,7 @@ public class PokemonStats
         return MaxHealth;
     }
 
+    // regens the pokemons health
     public void regen()
     {
         currentHealth = MaxHealth;

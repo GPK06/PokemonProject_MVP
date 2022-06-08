@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.UI; // called so that I can manipulate the ui
 
 // viewParty class is the class that controls all of the functions that deals with viewing controls and party
 // viewParty class based off of: https://www.youtube.com/watch?v=JivuXdrIHK0

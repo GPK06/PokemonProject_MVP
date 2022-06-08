@@ -15,22 +15,16 @@ public class BattleOptions : MonoBehaviour
     PokemonStats volthesis;
     PokemonStats wargo;
 
-    // make the sets for the constructor for all of the pokemon
-    HashSet<string> weaknessMossamr = new HashSet<string>();
-    HashSet<string> resistanceMossamr = new HashSet<string>();
-    HashSet<string> immunityMossamr = new HashSet<string>();
-
-    HashSet<string> weaknessVolthesis = new HashSet<string>();
-    HashSet<string> resistanceVolthesis = new HashSet<string>();
-    HashSet<string> immunityVolthesis = new HashSet<string>();
-
-    HashSet<string> weaknessWargo = new HashSet<string>();
-    HashSet<string> resistanceWargo = new HashSet<string>();
-
     // when the script is first run fill in all of the information to do with the pokemon
     public void Awake()
     {
-        PokemonStats enemyPokemon = PokemonParty.getEnemyPokemon();
+        updateEnemyPokemon(); // called to upoate enemy pokemon info
+        previousRoute = PokemonParty.getPrevRoute();
+    }
+
+    public static void updateEnemyPokemon()
+    {
+        PokemonStats[] enemyPokemons = PokemonParty.getEnemyPokemon();
 
         GameObject Canvas = GameObject.FindWithTag("Canvas");
 
@@ -39,38 +33,24 @@ public class BattleOptions : MonoBehaviour
         Text totalHealth = Canvas.transform.Find("EnemyTotalHealth").GetComponent<Text>(); // gets the text
         Text currentHealth = Canvas.transform.Find("EnemyCurrentHealth").GetComponent<Text>(); // gets the text
 
-        pokemonImage.sprite = Resources.Load<Sprite>(enemyPokemon.getName()); // changes image
-        pokemonName.text = enemyPokemon.getName(); // changes text
-        currentHealth.text = enemyPokemon.getHealth() + "";
-        totalHealth.text = enemyPokemon.maxHealth() + "";
-        previousRoute = PokemonParty.getPrevRoute();
+        pokemonImage.sprite = Resources.Load<Sprite>(enemyPokemons[0].getName()); // changes image
+        pokemonName.text = enemyPokemons[0].getName(); // changes text
+        currentHealth.text = enemyPokemons[0].getHealth() + "";
+        totalHealth.text = enemyPokemons[0].maxHealth() + "";
     }
 
     // copnctructor to inuitalize all of the fields
     public BattleOptions()
     {
-        // methods to add all of the information to the sets without clogging the constrcutor
-        addWeaknessMossamr();
-        addWeaknessVolthesis();
-        addWeaknessWargo();
-
-        addResistanceWargo();
-        addResistanceVolthesis();
-        addResistanceMossamr();
-
-        addImmunityVolthesis();
-        addImmunityMossamr();
-
-        // make the pokemon
-        //public PokemonStats(string name, string primary, string secondary, int health, int speed, int attack, int spAttack, int defense, int spDefense, HashSet<string> weaknessP, HashSet<string> resistanceP, HashSet<string> immunityP)
-        mossamr = new PokemonStats("Mossamr", "grass", "steel", 87, 87, 87, 87, 87, 87, weaknessMossamr, resistanceMossamr, immunityMossamr);
-        volthesis = new PokemonStats("Volthesis", "fire", "fairy", 87, 87, 87, 87, 87, 87, weaknessVolthesis, resistanceVolthesis, immunityVolthesis);
-        wargo = new PokemonStats("Wargo", "water", "dragon", 87, 87, 87, 87, 87, 87, weaknessWargo, resistanceWargo, null);
+        volthesis = PokemonParty.getVolthesis();
+        wargo = PokemonParty.getWargo();
+        mossamr = PokemonParty.getMossamr();
     }
 
     // changes to the previous route if the player ran away
     public void runAway()
     {
+        // all trainers have more than 1 pokemon
         SceneManager.LoadScene(previousRoute);
     }
 
@@ -80,7 +60,8 @@ public class BattleOptions : MonoBehaviour
         // initializes all of the variables that will need to be used
         //string stat;
 
-        PokemonStats enemyPokemon = PokemonParty.getEnemyPokemon();
+        PokemonStats[] enemyPokemons = PokemonParty.getEnemyPokemon();
+        PokemonStats enemyPokemon = enemyPokemons[0];
 
         PokemonStats[] party = PokemonParty.getParty();
         PokemonStats currentPokemon = party[0];
@@ -156,75 +137,6 @@ public class BattleOptions : MonoBehaviour
         
         battleButton = GameObject.Find("Canvas/BattleOptions/SwitchButton");
         battleButton.SetActive(true);
-    }
-
-    // method to add mossamrs weakness'
-    public void addWeaknessMossamr()
-    {
-        weaknessMossamr.Add("fire 2"); //4x weakness
-        weaknessMossamr.Add("fighting");
-    }
-
-    // method to add mossamrs resistances
-    public void addResistanceMossamr()
-    {
-        resistanceMossamr.Add("normal");
-        resistanceMossamr.Add("grass 2"); // 4x weakness
-        resistanceMossamr.Add("water");
-        resistanceMossamr.Add("electric");
-        resistanceMossamr.Add("psychic");
-        resistanceMossamr.Add("rock");
-        resistanceMossamr.Add("dragon");
-        resistanceMossamr.Add("steel");
-        resistanceMossamr.Add("fairy");
-    }
-
-    // method to add mossamrs immunities
-    public void addImmunityMossamr()
-    {
-        immunityMossamr.Add("poison");
-    }
-
-    // method to add volthesis wekaness'
-    public void addWeaknessVolthesis()
-    {
-        weaknessVolthesis.Add("water");
-        weaknessVolthesis.Add("ground");
-        weaknessVolthesis.Add("poison");
-        weaknessVolthesis.Add("rock");
-    }
-
-    // method to add volthesis resistance's
-    public void addResistanceVolthesis()
-    {
-        resistanceVolthesis.Add("fire");
-        resistanceVolthesis.Add("grass");
-        resistanceVolthesis.Add("ice");
-        resistanceVolthesis.Add("fighting");
-        resistanceVolthesis.Add("fairy");
-        resistanceVolthesis.Add("bug 2"); // 4x resistance
-        resistanceVolthesis.Add("dark");
-    }
-
-    // method to add voltheis immunities
-    public void addImmunityVolthesis()
-    {
-        immunityVolthesis.Add("dragon");
-    }
-
-    // method to add wargos weakness'
-    public void addWeaknessWargo()
-    {
-        weaknessWargo.Add("fairy"); 
-        weaknessWargo.Add("dragon");
-    }
-
-    // method to add wargos resistance
-    public void addResistanceWargo()
-    {
-        resistanceWargo.Add("fire 2");
-        resistanceWargo.Add("water 2");
-        resistanceWargo.Add("steel");
     }
 
     // method to catch pokemon with the name of the pokemon given as the parameter
@@ -324,6 +236,7 @@ public class BattleOptions : MonoBehaviour
         Panel.SetActive(false);
     }
 
+    // to close the switch menu if you cannot switch pokemon
     public void close()
     {
         GameObject panel = GameObject.FindWithTag("Panel");
