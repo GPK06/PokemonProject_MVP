@@ -245,10 +245,11 @@ public class PokemonStats
                 button.SetActive(false);
             }
 
-            PokemonParty.assignAllDead(true);
-
             GameObject nextButton = GameObject.Find("Canvas/BattleOptions/NextButton");
             nextButton.SetActive(true);
+
+            Text endText = nextButton.transform.Find("Text").GetComponent<Text>();
+            endText.text = "Congratulations, you beat the pokemon!";
         }
     }
 
@@ -283,6 +284,9 @@ public class PokemonStats
 
             GameObject nextButton = GameObject.Find("Canvas/BattleOptions/NextButton");
             nextButton.SetActive(true);
+
+            Text endText = nextButton.transform.Find("Text").GetComponent<Text>();
+            endText.text = "You blacked out! All mighty Arceus gave you another chance.";
         }
     }
 

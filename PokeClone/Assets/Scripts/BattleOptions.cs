@@ -22,8 +22,10 @@ public class BattleOptions : MonoBehaviour
         previousRoute = PokemonParty.getPrevRoute();
     }
 
+    // method to update the enemy pokemon displayed
     public static void updateEnemyPokemon()
     {
+        // get array of the enmy pokemon
         PokemonStats[] enemyPokemons = PokemonParty.getEnemyPokemon();
 
         GameObject Canvas = GameObject.FindWithTag("Canvas");
@@ -33,11 +35,14 @@ public class BattleOptions : MonoBehaviour
         Text totalHealth = Canvas.transform.Find("EnemyTotalHealth").GetComponent<Text>(); // gets the text
         Text currentHealth = Canvas.transform.Find("EnemyCurrentHealth").GetComponent<Text>(); // gets the text
 
+        // current pokemon is at index 0;
         pokemonImage.sprite = Resources.Load<Sprite>(enemyPokemons[0].getName()); // changes image
         pokemonName.text = enemyPokemons[0].getName(); // changes text
         currentHealth.text = enemyPokemons[0].getHealth() + "";
         totalHealth.text = enemyPokemons[0].maxHealth() + "";
     }
+
+    
 
     // copnctructor to inuitalize all of the fields
     public BattleOptions()
@@ -154,13 +159,20 @@ public class BattleOptions : MonoBehaviour
     // method to catch pokemon with the name of the pokemon given as the parameter
     public void catchPokemon(Text name) 
     {
+
+        // turn on next button
+        GameObject nextButton = GameObject.Find("Canvas/BattleOptions/NextButton");
+        nextButton.SetActive(true);
+
+        Text endText = nextButton.transform.Find("Text").GetComponent<Text>();
+
         if (!PokemonParty.getTrainerBattle())
         {
             // if the party is too full then can't add a pokemon
             PokemonStats[] pokemonParty = PokemonParty.getParty();
             if (pokemonParty.Length > 6)
             {
-                Debug.Log("Party is too full");
+                endText.text = "Your party is too full.";
             }
             // adds the pokemon to the party
             string nameOfPokemon = name.text;
@@ -172,7 +184,15 @@ public class BattleOptions : MonoBehaviour
             {
                 PokemonParty.add(mossamr);
             }
-            runAway(); // goes back to the route because youa are done catching
+            
+            GameObject[] buttons = GameObject.FindGameObjectsWithTag("Button");
+            // deactivate all battle buttons
+            foreach (GameObject button in buttons)
+            {
+                button.SetActive(false);
+            }
+
+            endText.text = "You caught, " + nameOfPokemon;
         }
     }
 

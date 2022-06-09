@@ -34,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         rbPlayer.MovePosition(rbPlayer.position + movement * moveSpeed * Time.fixedDeltaTime);
-        rbCamera.MovePosition(rbCamera.position + movement * moveSpeed * Time.fixedDeltaTime);
+        rbCamera.position = rbPlayer.position;
     }
 
     // if the player exits this trigger than the pokemon is healed.
