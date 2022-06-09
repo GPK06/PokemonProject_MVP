@@ -3860,7 +3860,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 247729889}
         m_TargetAssemblyTypeName: BattleOptions, Assembly-CSharp
-        m_MethodName: runAway
+        m_MethodName: leave
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

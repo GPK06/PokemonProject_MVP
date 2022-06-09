@@ -53,6 +53,7 @@ public class PlayerMovement : MonoBehaviour
         Time.timeScale = 1f; // for the trainer text the game pauses so that you cannot move anymore
         PokemonStats[] party = { PokemonParty.getWargo(), PokemonParty.getWargo(), PokemonParty.getWargo(), null, null, null };
         PokemonParty.assignPokemonInformation(party);
+        PokemonParty.assignTrainerBattle(true);
         SceneManager.LoadScene("BATTLE");
     }
 

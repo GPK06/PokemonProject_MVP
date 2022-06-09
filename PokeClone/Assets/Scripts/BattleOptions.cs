@@ -42,15 +42,27 @@ public class BattleOptions : MonoBehaviour
     // copnctructor to inuitalize all of the fields
     public BattleOptions()
     {
-        volthesis = PokemonParty.getVolthesis();
-        wargo = PokemonParty.getWargo();
-        mossamr = PokemonParty.getMossamr();
+        PokemonStats pokemon = PokemonParty.getVolthesis();
+        volthesis = pokemon;
+        pokemon = PokemonParty.getWargo();
+        wargo = pokemon;
+        pokemon = PokemonParty.getMossamr();
+        mossamr = pokemon;
     }
 
     // changes to the previous route if the player ran away
     public void runAway()
     {
-        // all trainers have more than 1 pokemon
+        if (!PokemonParty.getTrainerBattle() && !PokemonParty.getAllDead())
+        {
+            // all trainers have more than 1 pokemon
+            SceneManager.LoadScene(previousRoute);
+        }
+    }
+
+    // so that I can leave when the battle is over
+    public void leave()
+    {
         SceneManager.LoadScene(previousRoute);
     }
 
@@ -142,22 +154,26 @@ public class BattleOptions : MonoBehaviour
     // method to catch pokemon with the name of the pokemon given as the parameter
     public void catchPokemon(Text name) 
     {
-        // if the party is too full then can't add a pokemon
-        PokemonStats[] pokemonParty = PokemonParty.getParty();
-        if (pokemonParty.Length > 6)
+        if (!PokemonParty.getTrainerBattle())
         {
-            Debug.Log("Party is too full");
+            // if the party is too full then can't add a pokemon
+            PokemonStats[] pokemonParty = PokemonParty.getParty();
+            if (pokemonParty.Length > 6)
+            {
+                Debug.Log("Party is too full");
+            }
+            // adds the pokemon to the party
+            string nameOfPokemon = name.text;
+            if (nameOfPokemon.Equals("Wargo"))
+            {
+                PokemonParty.add(wargo);
+            }
+            else
+            {
+                PokemonParty.add(mossamr);
+            }
+            runAway(); // goes back to the route because youa are done catching
         }
-        // adds the pokemon to the party
-        string nameOfPokemon = name.text;
-        if (nameOfPokemon.Equals("Wargo"))
-        {
-            PokemonParty.add(wargo);
-        } else
-        {
-            PokemonParty.add(mossamr);
-        }
-        runAway(); // goes back to the route because youa are done catching
     }
 
     // activates the panel to see the switch menu and then fill in all of the pokemon information

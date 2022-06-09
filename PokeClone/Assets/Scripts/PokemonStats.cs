@@ -227,6 +227,7 @@ public class PokemonStats
                     allPokemonDead = false;
                     party[0] = party[i];
                     party[i] = current;
+                    
                     BattleOptions.updateEnemyPokemon();
                 }
             }
@@ -234,6 +235,7 @@ public class PokemonStats
 
         if (allPokemonDead)
         {
+            PokemonParty.assignAllDead(true);
 
             // will have to have an array if trainer has multiple pokemon
             GameObject[] buttons = GameObject.FindGameObjectsWithTag("Button");
@@ -242,6 +244,8 @@ public class PokemonStats
             {
                 button.SetActive(false);
             }
+
+            PokemonParty.assignAllDead(true);
 
             GameObject nextButton = GameObject.Find("Canvas/BattleOptions/NextButton");
             nextButton.SetActive(true);

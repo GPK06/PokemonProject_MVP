@@ -10,27 +10,22 @@ public class PokemonParty : MonoBehaviour
 
     // static fields because the pokemon stay the same the entire game. If there were pokemon then it would be its own class with its own array
     public static PokemonStats volthesis;
-    public static PokemonStats wargo;
-    public static PokemonStats mossamr;
+
+    private static bool trainerBatttle;
+    private static bool allDead;
 
     // so the methods work to fill in the pokemon info
-    HashSet<string> weaknessMossamr = new HashSet<string>();
-    HashSet<string> resistanceMossamr = new HashSet<string>();
-    HashSet<string> immunityMossamr = new HashSet<string>();
 
     HashSet<string> weaknessVolthesis = new HashSet<string>();
     HashSet<string> resistanceVolthesis = new HashSet<string>();
     HashSet<string> immunityVolthesis = new HashSet<string>();
-
-    HashSet<string> weaknessWargo = new HashSet<string>();
-    HashSet<string> resistanceWargo = new HashSet<string>();
 
     // An array of 6 pokemon that will be the party
     public static PokemonStats[] party = new PokemonStats[6];
 
     public static PokemonStats[] enemyPokemons = new PokemonStats[6];
 
-    public static string previousRoute;
+    public static string previousRoute; // so i know which route I came from
 
     public static void partyRestore()
     {
@@ -71,40 +66,24 @@ public class PokemonParty : MonoBehaviour
         DontDestroyOnLoad(gameObject); // does not destroy the object in between scenes
 
         initialize();
+
+        assignTrainerBattle(false);
+        assignAllDead(false);
     }
 
     // initializes the first pokemon in the array
     public void initialize()
     {
-        // make the sets for the constructor for all of the pokemon
-        HashSet<string> weaknessMossamr = new HashSet<string>();
-        HashSet<string> resistanceMossamr = new HashSet<string>();
-        HashSet<string> immunityMossamr = new HashSet<string>();
-
-        HashSet<string> weaknessVolthesis = new HashSet<string>();
-        HashSet<string> resistanceVolthesis = new HashSet<string>();
-        HashSet<string> immunityVolthesis = new HashSet<string>();
-
-        HashSet<string> weaknessWargo = new HashSet<string>();
-        HashSet<string> resistanceWargo = new HashSet<string>();
-
         // methods to add all of the information to the sets without clogging the constrcutor
-        addWeaknessMossamr();
         addWeaknessVolthesis();
-        addWeaknessWargo();
-
-        addResistanceWargo();
+       
         addResistanceVolthesis();
-        addResistanceMossamr();
 
         addImmunityVolthesis();
-        addImmunityMossamr();
 
         // make the pokemon
         //public PokemonStats(string name, string primary, string secondary, int health, int speed, int attack, int spAttack, int defense, int spDefense, HashSet<string> weaknessP, HashSet<string> resistanceP, HashSet<string> immunityP)
-        mossamr = new PokemonStats("Mossamr", "grass", "steel", 87, 87, 87, 87, 87, 87, weaknessMossamr, resistanceMossamr, immunityMossamr);
         volthesis = new PokemonStats("Volthesis", "fire", "fairy", 87, 87, 87, 87, 87, 87, weaknessVolthesis, resistanceVolthesis, immunityVolthesis);
-        wargo = new PokemonStats("Wargo", "water", "dragon", 87, 87, 87, 87, 87, 87, weaknessWargo, resistanceWargo, null);
 
         add(volthesis);
     }
@@ -116,11 +95,46 @@ public class PokemonParty : MonoBehaviour
 
     public static PokemonStats getMossamr()
     {
+        PokemonStats mossamr;
+
+        HashSet<string> weaknessMossamr = new HashSet<string>();
+        HashSet<string> resistanceMossamr = new HashSet<string>();
+        HashSet<string> immunityMossamr = new HashSet<string>();
+
+        weaknessMossamr.Add("fire 2"); //4x weakness
+        weaknessMossamr.Add("fighting");
+
+        resistanceMossamr.Add("normal");
+        resistanceMossamr.Add("grass 2"); // 4x weakness
+        resistanceMossamr.Add("water");
+        resistanceMossamr.Add("electric");
+        resistanceMossamr.Add("psychic");
+        resistanceMossamr.Add("rock");
+        resistanceMossamr.Add("dragon");
+        resistanceMossamr.Add("steel");
+        resistanceMossamr.Add("fairy");
+
+        immunityMossamr.Add("poison");
+
+        mossamr = new PokemonStats("Mossamr", "grass", "steel", 87, 87, 87, 87, 87, 87, weaknessMossamr, resistanceMossamr, immunityMossamr);
         return mossamr;
     }
 
+    // make a method to return a brand new wargo everytime so that they are not all linked
     public static PokemonStats getWargo()
     {
+        PokemonStats wargo;
+        HashSet<string> weaknessWargo = new HashSet<string>();
+        HashSet<string> resistanceWargo = new HashSet<string>();
+        
+        weaknessWargo.Add("fairy");
+        weaknessWargo.Add("dragon");
+        
+        resistanceWargo.Add("fire 2");
+        resistanceWargo.Add("water 2");
+        resistanceWargo.Add("steel");
+        
+        wargo = new PokemonStats("Wargo", "water", "dragon", 87, 87, 87, 87, 87, 87, weaknessWargo, resistanceWargo, null);
         return wargo;
     }
 
@@ -174,33 +188,6 @@ public class PokemonParty : MonoBehaviour
         return previousRoute;
     }
 
-    // method to add mossamrs weakness'
-    public void addWeaknessMossamr()
-    {
-        weaknessMossamr.Add("fire 2"); //4x weakness
-        weaknessMossamr.Add("fighting");
-    }
-
-    // method to add mossamrs resistances
-    public void addResistanceMossamr()
-    {
-        resistanceMossamr.Add("normal");
-        resistanceMossamr.Add("grass 2"); // 4x weakness
-        resistanceMossamr.Add("water");
-        resistanceMossamr.Add("electric");
-        resistanceMossamr.Add("psychic");
-        resistanceMossamr.Add("rock");
-        resistanceMossamr.Add("dragon");
-        resistanceMossamr.Add("steel");
-        resistanceMossamr.Add("fairy");
-    }
-
-    // method to add mossamrs immunities
-    public void addImmunityMossamr()
-    {
-        immunityMossamr.Add("poison");
-    }
-
     // method to add volthesis wekaness'
     public void addWeaknessVolthesis()
     {
@@ -228,18 +215,24 @@ public class PokemonParty : MonoBehaviour
         immunityVolthesis.Add("dragon");
     }
 
-    // method to add wargos weakness'
-    public void addWeaknessWargo()
+    public static void assignTrainerBattle(bool boolean)
     {
-        weaknessWargo.Add("fairy");
-        weaknessWargo.Add("dragon");
+        trainerBatttle = boolean;
     }
 
-    // method to add wargos resistance
-    public void addResistanceWargo()
+    public static bool getTrainerBattle()
     {
-        resistanceWargo.Add("fire 2");
-        resistanceWargo.Add("water 2");
-        resistanceWargo.Add("steel");
+        return trainerBatttle;
+    }
+
+    public static void assignAllDead(bool boolean)
+    {
+        allDead = boolean;
+        Debug.Log(allDead);
+    }
+
+    public static bool getAllDead()
+    {
+        return allDead;
     }
 }
