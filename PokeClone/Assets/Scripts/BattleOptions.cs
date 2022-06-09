@@ -28,6 +28,17 @@ public class BattleOptions : MonoBehaviour
         // get array of the enmy pokemon
         PokemonStats[] enemyPokemons = PokemonParty.getEnemyPokemon();
 
+        Debug.Log("trainer battle " + PokemonParty.getTrainerBattle());
+        Debug.Log("trainer battle " + PokemonParty.getAllDead());
+
+        if (PokemonParty.getTrainerBattle() && !PokemonParty.getAllDead())
+        {
+            inBetween("The trainer has switched to " + enemyPokemons[0].getName());
+        } else
+        {
+            inBetween("You Encountered " + enemyPokemons[0].getName());
+        }
+
         GameObject Canvas = GameObject.FindWithTag("Canvas");
 
         Image pokemonImage = Canvas.transform.Find("EnemyPokemon").GetComponent<Image>(); // gets the image name
@@ -42,9 +53,22 @@ public class BattleOptions : MonoBehaviour
         totalHealth.text = enemyPokemons[0].maxHealth() + "";
     }
 
-    
+    public static void inBetween(string text)
+    {
+        GameObject panel = GameObject.Find("Canvas/BattleOptions/InBetween");
+        panel.SetActive(true);
+        Text message = GameObject.Find("Canvas/BattleOptions/InBetween/moveOnButton/Text").GetComponent<Text>();
+        message.text = text;
 
-    // copnctructor to inuitalize all of the fields
+        GameObject[] selectionButtons = GameObject.FindGameObjectsWithTag("Button");
+
+        foreach (GameObject button in selectionButtons)
+        {
+            button.SetActive(false);
+        }
+    }
+
+    // constructor to initialize all of the fields
     public BattleOptions()
     {
         PokemonStats pokemon = PokemonParty.getVolthesis();
@@ -159,15 +183,14 @@ public class BattleOptions : MonoBehaviour
     // method to catch pokemon with the name of the pokemon given as the parameter
     public void catchPokemon(Text name) 
     {
-
-        // turn on next button
-        GameObject nextButton = GameObject.Find("Canvas/BattleOptions/NextButton");
-        nextButton.SetActive(true);
-
-        Text endText = nextButton.transform.Find("Text").GetComponent<Text>();
-
         if (!PokemonParty.getTrainerBattle())
         {
+            // turn on next button
+            GameObject nextButton = GameObject.Find("Canvas/BattleOptions/NextButton");
+            nextButton.SetActive(true);
+
+            Text endText = nextButton.transform.Find("Text").GetComponent<Text>();
+
             // if the party is too full then can't add a pokemon
             PokemonStats[] pokemonParty = PokemonParty.getParty();
             if (pokemonParty.Length > 6)
@@ -273,9 +296,18 @@ public class BattleOptions : MonoBehaviour
     }
 
     // to close the switch menu if you cannot switch pokemon
-    public void close()
+    public void close(GameObject panel)
     {
-        GameObject panel = GameObject.FindWithTag("Panel");
         panel.SetActive(false);
+
+        // activate battling buttons
+        GameObject battleButton = GameObject.Find("Canvas/BattleOptions/RunButton");
+        battleButton.SetActive(true);
+
+        battleButton = GameObject.Find("Canvas/BattleOptions/FightButton");
+        battleButton.SetActive(true);
+
+        battleButton = GameObject.Find("Canvas/BattleOptions/CatchButton");
+        battleButton.SetActive(true);
     }
 }
