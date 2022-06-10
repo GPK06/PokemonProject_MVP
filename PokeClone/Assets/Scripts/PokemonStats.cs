@@ -222,6 +222,7 @@ public class PokemonStats
         {
             if (party[i] != null)
             {
+                Debug.Log("I have run");
                 if (party[i].getHealth() > 1)
                 {
                     allPokemonDead = false;
@@ -235,6 +236,9 @@ public class PokemonStats
 
         if (allPokemonDead)
         {
+
+            BattleOptions.close(GameObject.Find("Canvas/BattleOptions/InBetween"));
+
             PokemonParty.assignAllDead(true);
 
             // will have to have an array if trainer has multiple pokemon
@@ -274,6 +278,9 @@ public class PokemonStats
         // if all pokemon are dead
         if (allPokemonDead)
         {
+            BattleOptions.close(GameObject.Find("Canvas/BattleOptions/InBetween"));
+
+            PokemonParty.assignAllDeadParty(true);
 
             GameObject[] buttons = GameObject.FindGameObjectsWithTag("Button");
 

@@ -13,6 +13,7 @@ public class PokemonParty : MonoBehaviour
 
     private static bool trainerBatttle;
     private static bool allDead;
+    private static bool allDeadEnemy;
 
     // so the methods work to fill in the pokemon info
 
@@ -227,11 +228,20 @@ public class PokemonParty : MonoBehaviour
 
     public static void assignAllDead(bool boolean)
     {
-        allDead = boolean;
-        Debug.Log(allDead);
+        allDeadEnemy = boolean;
     }
 
     public static bool getAllDead()
+    {
+        return allDeadEnemy;
+    }
+
+    public static void assignAllDeadParty(bool boolean)
+    {
+        allDead = boolean;
+    }
+
+    public static bool getAllDeadParty()
     {
         return allDead;
     }

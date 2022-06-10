@@ -29,12 +29,12 @@ public class BattleOptions : MonoBehaviour
         PokemonStats[] enemyPokemons = PokemonParty.getEnemyPokemon();
 
         Debug.Log("trainer battle " + PokemonParty.getTrainerBattle());
-        Debug.Log("trainer battle " + PokemonParty.getAllDead());
+        Debug.Log("all Dead " + PokemonParty.getAllDead());
 
-        if (PokemonParty.getTrainerBattle() && !PokemonParty.getAllDead())
+        if (PokemonParty.getTrainerBattle() && !PokemonParty.getAllDeadParty())
         {
             inBetween("The trainer has switched to " + enemyPokemons[0].getName());
-        } else
+        } else if (!PokemonParty.getAllDeadParty())
         {
             inBetween("You Encountered " + enemyPokemons[0].getName());
         }
@@ -53,8 +53,10 @@ public class BattleOptions : MonoBehaviour
         totalHealth.text = enemyPokemons[0].maxHealth() + "";
     }
 
+    // method to send messages to the player when they are in the battle
     public static void inBetween(string text)
     {
+        // get panel and send message
         GameObject panel = GameObject.Find("Canvas/BattleOptions/InBetween");
         panel.SetActive(true);
         Text message = GameObject.Find("Canvas/BattleOptions/InBetween/moveOnButton/Text").GetComponent<Text>();
@@ -62,6 +64,7 @@ public class BattleOptions : MonoBehaviour
 
         GameObject[] selectionButtons = GameObject.FindGameObjectsWithTag("Button");
 
+        // turn off buttons so that it can be seen
         foreach (GameObject button in selectionButtons)
         {
             button.SetActive(false);
@@ -86,6 +89,9 @@ public class BattleOptions : MonoBehaviour
         {
             // all trainers have more than 1 pokemon
             SceneManager.LoadScene(previousRoute);
+        } else
+        {
+            inBetween("You cannot run from a trainer battle!");
         }
     }
 
@@ -148,14 +154,21 @@ public class BattleOptions : MonoBehaviour
             // whichever pokemon is faster attacks first
             if (currentPokemon.getSpeed() > enemyPokemon.getSpeed())
             {
+                inBetween(currentPokemon.getName() + " did " + currentDamage + " health points of damage! " + enemyPokemon.getName() + " did " + enemyDamage + " health points of damage!");
+
                 enemyPokemon.takeDamageEnemy(currentDamage, currentPokemon);
                 currentPokemon.takeDamage(enemyDamage, enemyPokemon);
             }
             else
             {
+                inBetween(currentPokemon.getName() + " did " + currentDamage + " health points of damage! " + enemyPokemon.getName() + " did " + enemyDamage + " health points of damage!");
+
                 currentPokemon.takeDamage(enemyDamage, enemyPokemon);
                 enemyPokemon.takeDamageEnemy(currentDamage, currentPokemon);
             }
+        } else
+        {
+            inBetween("Your pokemon died. Switch!"); // messasge if tried battling with dead pokemon
         }
     }
 
@@ -193,21 +206,36 @@ public class BattleOptions : MonoBehaviour
 
             // if the party is too full then can't add a pokemon
             PokemonStats[] pokemonParty = PokemonParty.getParty();
-            if (pokemonParty.Length > 6)
+            int totalPokemon = 0;
+            
+            foreach (PokemonStats pokemon in pokemonParty) // conuts how many pokemon is in the party
             {
-                endText.text = "Your party is too full.";
-            }
-            // adds the pokemon to the party
-            string nameOfPokemon = name.text;
-            if (nameOfPokemon.Equals("Wargo"))
-            {
-                PokemonParty.add(wargo);
-            }
-            else
-            {
-                PokemonParty.add(mossamr);
+                if (pokemon != null)
+                {
+                    totalPokemon++;
+                }
             }
             
+            // either party is too full or adds pokemon to the party
+            if (totalPokemon >= 6)
+            {
+                endText.text = "Your party is too full.";
+            } else
+            {
+                // adds the pokemon to the party
+                string nameOfPokemon = name.text;
+                if (nameOfPokemon.Equals("Wargo"))
+                {
+                    PokemonParty.add(wargo);
+                }
+                else
+                {
+                    PokemonParty.add(mossamr);
+                }
+
+                endText.text = "You caught, " + nameOfPokemon; 
+            }
+
             GameObject[] buttons = GameObject.FindGameObjectsWithTag("Button");
             // deactivate all battle buttons
             foreach (GameObject button in buttons)
@@ -215,7 +243,9 @@ public class BattleOptions : MonoBehaviour
                 button.SetActive(false);
             }
 
-            endText.text = "You caught, " + nameOfPokemon;
+        } else
+        {
+            inBetween("You cannot catch a trainers pokemon!"); /// message if in trainer battle
         }
     }
 
@@ -296,7 +326,7 @@ public class BattleOptions : MonoBehaviour
     }
 
     // to close the switch menu if you cannot switch pokemon
-    public void close(GameObject panel)
+    public static void close(GameObject panel)
     {
         panel.SetActive(false);
 

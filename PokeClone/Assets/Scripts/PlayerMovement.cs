@@ -45,6 +45,8 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("run in exit method");
             PokemonParty.partyRestore();
         }
+
+        PokemonParty.assignAllDeadParty(false);
     }
 
     // special method for trainer battles so that they can have more that 1 pokemon
@@ -87,6 +89,7 @@ public class PlayerMovement : MonoBehaviour
         
         if (num == 1)
         {
+            PokemonParty.assignTrainerBattle(false);
 
             // different encounter boxes for each pokemon (like some routes in pokemon)
             if (collision.name.Equals("EncounterBoxWargo"))
@@ -95,8 +98,7 @@ public class PlayerMovement : MonoBehaviour
 
                 PokemonParty.assignPokemonInformation(party);
                 SceneManager.LoadScene("BATTLE"); // cannot call at the bottom other wise the heal box triggers an encounter
-            }
-            else if (collision.name.Equals("EncounterBox")) // if not wargo then has to be mossamr
+            } else if (collision.name.Equals("EncounterBox")) // if not wargo then has to be mossamr
             {
                 party[0] = PokemonParty.getMossamr();
 
